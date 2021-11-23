@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: sebaservice
+spec:
+  selector:
+    app: seba-app
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 3000
+      # Port to forward to inside the pod
+      targetPort: 80
+      # Port accessible outside cluster
+      nodePort: 30002
+  type: LoadBalancer
+ 
+ 
+ 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seba-appdeployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: seba-app
+  template:
+    metadata:
+      labels:
+        app: seba-app
+    spec:
+      containers:
+        - name: seba-app
+          image: tumbaboci/seba_reactapp:1.0.0-prod
+          ports:
+            - containerPort: 80
