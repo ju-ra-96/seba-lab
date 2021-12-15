@@ -1,4 +1,5 @@
-# Example App -  Native Plugin
+# SAP Project -  Native Plugin
 
-This is an example app.  It has no real use other than making sure external apps are supported.
+This is an app plugin to customize Grafana for our project's needs.
+<br />Within this app you can see mainly the visualized monitoring of the Kubernetes clusters.
 

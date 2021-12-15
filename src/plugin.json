@@ -1,13 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "app",
-  "name": "Simple App",
+  "name": "Grafana App",
   "id": "myorgid-simple-app",
 
   "info": {
     "description": "Grafana App Plugin Template",
     "author": {
-      "name": "Your Name"
+      "name": "Julian Rahimi"
     },
     "keywords": ["panel", "template"],
     "logos": {
@@ -55,6 +55,21 @@
       "type": "dashboard",
       "name": "Lots of Stats",
       "path": "dashboards/stats.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Node Exporter",
+      "path": "dashboards/nodes_rev1.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Kubernetes Troubleshooting",
+      "path": "dashboards/troubleshooting-kubernetes-simple-and-fast-view_rev3.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Kubernetes Monitor",
+      "path": "dashboards/kubernetes-cluster_rev1.json"
     }
   ],
 
