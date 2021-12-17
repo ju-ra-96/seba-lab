@@ -1,0 +1,14 @@
+.cluster_image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.cluster{
+    position: relative;
+}
+.cluster_buttons{
+    padding: 8px !important;
+    text-align: right;
+    position: absolute;
+    right: 0px;
+}

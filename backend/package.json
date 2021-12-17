@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for the kubernetes clusters visualisation webapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Team SEBA",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fileupload": "^1.0.0",
+    "formidable": "^2.0.1",
+    "multer": "^1.4.4",
+    "nodemon": "^2.0.7",
+    "path": "^0.12.7",
+    "pg": "^8.7.1",
+    "pg-pool": "^3.4.1",
+    "shelljs": "^0.8.4",
+    "upload-file": "^1.2.0",
+    "uuid": "^8.3.2"
+  }
+}

@@ -1,0 +1,19 @@
+.header{
+    height: 40px;
+    width: 100%;
+    background-color: black;
+}
+.dialog_text{
+    margin-bottom: 20px !important;
+}
+.form-control{
+    margin-top: 20px !important;
+}
+.header-buttons-and-logo{
+    position: relative;
+}
+.header-buttons{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
