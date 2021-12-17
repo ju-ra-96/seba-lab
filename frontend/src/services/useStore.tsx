@@ -14,7 +14,7 @@ const useStore = create((set) => ({
     
     setPods: (pods) =>
     set((state) => ({ pods: pods })),
-    
+
     setNamespaces: (namespaces) =>
     set((state) => ({ namespaces: namespaces })),
 

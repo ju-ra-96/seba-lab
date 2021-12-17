@@ -19,9 +19,9 @@ export function Overview(props) {
     const setNodes = useStore((state) => state.setNodes);
     const setNamespaces = useStore((state) => state.setNamespaces);
 
-    const getInfo = async (e) => {
+    const getInfo = async () => {
         const axiosConfig = {
-            Headers: {
+            headers: {
                 "Content-Type": "application/json",
             },
         };

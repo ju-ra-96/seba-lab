@@ -16,9 +16,9 @@ const Clusters = () => {
         getClusters();
     }, [createDialogState,deleteDialogState]);
 
-    const getClusters = async (e) => {
+    const getClusters = async () => {
             const axiosConfig = {
-                Headers: {
+                headers: {
                     "Content-Type": "application/json",
                 },
             };
