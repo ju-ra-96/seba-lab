@@ -25,7 +25,7 @@ export function Overview(props) {
                 "Content-Type": "application/json",
             },
         };
-        await axios.get('http://localhost:5000/api/cluster/getPods/' + window.location.pathname.slice(10), axiosConfig)
+        await axios.get('http://localhost:8000/api/cluster/getPods/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimPods(res.data.pods);
             })
@@ -33,7 +33,7 @@ export function Overview(props) {
                 toast.configure()
                 toast.error('Error getting the pods')
             });
-        await axios.get('http://localhost:5000/api/cluster/getServices/' + window.location.pathname.slice(10), axiosConfig)
+        await axios.get('http://localhost:8000/api/cluster/getServices/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimServices(res.data.services)
             })
@@ -42,7 +42,7 @@ export function Overview(props) {
                 toast.error('Error getting the services')
             });
 
-        await axios.get('http://localhost:5000/api/cluster/getNodes/' + window.location.pathname.slice(10), axiosConfig)
+        await axios.get('http://localhost:8000/api/cluster/getNodes/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimNodes(res.data.nodes)
             })
@@ -51,7 +51,7 @@ export function Overview(props) {
                 toast.error('Error getting the nodes')
             });
 
-        await axios.get('http://localhost:5000/api/cluster/getNamespaces/' + window.location.pathname.slice(10), axiosConfig)
+        await axios.get('http://localhost:8000/api/cluster/getNamespaces/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimNamespaces(res.data.namespaces)
             })

@@ -36,7 +36,7 @@ app.post('/upload', function (req, res) {
 
     app.use("/api/cluster", require("./routes/cluster"));
 
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 8000;
 
     const server = app.listen(PORT, () =>
       console.log(`Server running on port ${PORT}`)

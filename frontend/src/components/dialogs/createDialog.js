@@ -42,18 +42,18 @@ export function CreateDialog() {
             let data = {
                 'id': Math.floor(Math.random() * 100000),
                 'name': name,
-                'config': "C:/Users/ahmed/projects/seba-lab/backend/public/"+file.name,
+                'config': "public/"+file.name,
             };
 
             setName("")
             setFile(null)
-            axios.post('http://localhost:5000/upload', selectedFile, axiosConfig)
+            axios.post('http://localhost:8000/upload', selectedFile, axiosConfig)
                   .then((response) => {
                   }).catch((e) => {
                     toast.configure()
                     toast.error('Error creating the cluster')
             });
-            axios.post('http://localhost:5000/api/cluster/createCluster', data, axiosConfig)
+            axios.post('http://localhost:8000/api/cluster/createCluster', data, axiosConfig)
                 .then((response) => {
                     addCluster(data)
                     toast.configure()

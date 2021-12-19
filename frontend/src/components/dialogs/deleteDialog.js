@@ -23,7 +23,7 @@ export function DeleteDialog(props) {
                 "Content-Type": "application/json",
             },
         };
-        await axios.delete('http://localhost:5000/api/cluster/deleteCluster/' + props.id, config)
+        await axios.delete('http://localhost:8000/api/cluster/deleteCluster/' + props.id, config)
             .then(
                 removeCluster(props.id),
                 toast.configure(),

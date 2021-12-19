@@ -22,7 +22,7 @@ const Clusters = () => {
                     "Content-Type": "application/json",
                 },
             };
-            await axios.get('http://localhost:5000/api/cluster/getClusters', axiosConfig)
+            await axios.get('http://localhost:8000/api/cluster/getClusters', axiosConfig)
                 .then(res => {
                     setClusters(res.data.map((cluster) => <Cluster key={cluster.id} id={cluster.id} name={cluster.name} config={cluster.config} />))
                 })   
