@@ -14,8 +14,11 @@ export default function Cluster(props) {
   const openDeleteDialog = useStore((state) => state.openDeleteDialog);
 
   const navigate = useNavigate();
-  const handleView = () => {
+  const navigateToStatus = () => {
     navigate('/overview/'+ props.id);
+  };
+  const navigateToGraph = () => {
+    navigate('/dashboard');
   };
   return (
     <Card key={props.id} className="cluster" sx={{ width: 295, height: 295 }}>
@@ -32,9 +35,13 @@ export default function Cluster(props) {
         <Typography variant="body2" color="text.secondary">
          id: {props.id}
         </Typography>
+        <Typography variant="body2" color="text.secondary">
+         status: running
+        </Typography>
       </CardContent>
       <CardActions className="cluster_buttons">
-        <Button onClick={handleView} size="small">View</Button>
+        <Button onClick={navigateToGraph} size="small">Graph</Button> 
+        <Button onClick={navigateToStatus} size="small">Status</Button>
         <Button onClick={openDeleteDialog} size="small">Delete</Button>
       </CardActions>
       <DeleteDialog key={props.id} name={props.name} id={props.id} />

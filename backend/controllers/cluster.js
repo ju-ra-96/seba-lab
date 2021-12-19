@@ -43,7 +43,7 @@ exports.deleteCluster = async (req, res) => {
     try {
         const { id } = req.params;
         const clusterConfig = await pool.query('SELECT config FROM clusters WHERE id=$1;', [id]);
-        //shell.exec("helm uninstall monitor --kubeconfig C:/Users/ahmed/projects/SAP/backend/controllers/kubeconfigf"+clusterConfig);
+        //shell.exec("helm uninstall monitor --kubeconfig="+clusterConfig);
         const clusters = await pool.query('DELETE FROM clusters WHERE id=$1;', [id]);
         res.json(clusters.rows)
     } catch (err) {

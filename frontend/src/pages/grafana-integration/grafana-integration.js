@@ -9,7 +9,7 @@ class SampleDashboard extends React.Component {
         const { user } = this.props
         return (
             <>
-               <iframe width="1000" height="1000" src="https://snapshot.raintank.io/dashboard/snapshot/yAZpBzJjD68Y5RuHUlgaoM8S5K0VGM3U" />;
+               <iframe width="100%" height="1000" src="https://snapshot.raintank.io/dashboard/snapshot/yAZpBzJjD68Y5RuHUlgaoM8S5K0VGM3U" />;
             </>
         )
     }

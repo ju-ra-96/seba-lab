@@ -28,6 +28,8 @@ export function Overview(props) {
         await axios.get('http://localhost:8000/api/cluster/getPods/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimPods(res.data.pods);
+                console.log("pods:")
+                console.log(res.data.pods)
             })
             .catch((e) => {
                 toast.configure()
@@ -36,6 +38,8 @@ export function Overview(props) {
         await axios.get('http://localhost:8000/api/cluster/getServices/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimServices(res.data.services)
+                console.log("services:")
+                console.log(res.data.services)
             })
             .catch((e) => {
                 toast.configure()
@@ -45,6 +49,8 @@ export function Overview(props) {
         await axios.get('http://localhost:8000/api/cluster/getNodes/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimNodes(res.data.nodes)
+                console.log("nodes:")
+                console.log(res.data.nodes)
             })
             .catch((e) => {
                 toast.configure()
@@ -54,6 +60,8 @@ export function Overview(props) {
         await axios.get('http://localhost:8000/api/cluster/getNamespaces/' + window.location.pathname.slice(10), axiosConfig)
             .then(res => {
                 trimNamespaces(res.data.namespaces)
+                console.log("namespaces:")
+                console.log(res.data.namespaces)
             })
             .catch((e) => {
                 toast.configure()
@@ -95,7 +103,6 @@ export function Overview(props) {
         podsArray.push(RestartArray);
         podsArray.push(AgeArray);
         setPods(podsArray);
-        console.log(podsArray);
     }
 
     const trimServices = (input) => {
@@ -139,7 +146,6 @@ export function Overview(props) {
         servicesArray.push(PortsArray);
         servicesArray.push(AgeArray);
         setServices(servicesArray);
-        console.log(servicesArray);
     }
 
     const trimNodes = (input) => {
@@ -179,7 +185,6 @@ export function Overview(props) {
         nodesArray.push(ageArray);
         nodesArray.push(versionArray);
         setNodes(nodesArray);
-        console.log(nodesArray);
     }
 
     const trimNamespaces = (input) => {
@@ -209,29 +214,12 @@ export function Overview(props) {
         namespacesArray.push(statusArray);
         namespacesArray.push(ageArray);
         setNamespaces(namespacesArray);
-        console.log(namespacesArray);
     }
 
 
     return (
         <div className="clusters-page">
             <h1 className="clusters-status-title">Cluster status</h1>
-            <div>
-                <h2 className="clusters-status-subtitle">Pods:</h2>
-                <p className="clusters-status-info">{pods}</p>
-            </div>
-            <div>
-                <h2 className="clusters-status-subtitle">Services:</h2>
-                <p className="clusters-status-info">{services}</p>
-            </div>
-            <div>
-                <h2 className="clusters-status-subtitle">Nodes:</h2>
-                <p className="clusters-status-info">{nodes}</p>
-            </div>
-            <div>
-                <h2 className="clusters-status-subtitle">Namespaces:</h2>
-                <p className="clusters-status-info">{namespaces}</p>
-            </div>
         </div>
     );
 };

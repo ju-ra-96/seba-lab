@@ -30,8 +30,6 @@ app.post('/upload', function (req, res) {
   }); 
 });
 
-
-
     // Connecting Routes
 
     app.use("/api/cluster", require("./routes/cluster"));
