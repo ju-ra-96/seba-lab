@@ -4,6 +4,7 @@ var cors = require('cors');
 app.use(cors());
 app.use(express.json());
 var multer = require('multer')
+const { Pool } = require('pg');
 
 app.get("/", (req, res, next) => {
   res.send("Api running");
@@ -33,7 +34,7 @@ app.post('/upload', function (req, res) {
     // Connecting Routes
 
     app.use("/api/cluster", require("./routes/cluster"));
-
+ 
     const PORT = process.env.PORT || 8000;
 
     const server = app.listen(PORT, () =>

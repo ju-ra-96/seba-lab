@@ -5,10 +5,12 @@
 }
 .cluster{
     position: relative;
+    font-family: sans-serif !important;
 }
 .cluster_buttons{
     padding: 8px !important;
     text-align: right;
     position: absolute;
     right: 0px;
+    bottom: 0px;
 }

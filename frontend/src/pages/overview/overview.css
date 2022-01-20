@@ -2,12 +2,42 @@
     color: white;
     margin: 0 auto;
     text-align: center;
+    display: inline;
+    font-family: sans-serif;
 }
 
-.clusters-status-subtitle {
-    color: white;
+.clusters-status-table {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
-
-.clusters-status-info {
-    color: white;
+.clusters-status-table-header{
+    background-color: #1976d2;
+    color: #ffffff;
+    padding: 0;
+    padding-top: 10px;
+    margin: auto;
+    min-height: 30px;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+ul{
+	list-style: none;
+    padding: 0;
+    text-align: center;
+}
+li{
+    border-bottom: 1px solid #dddddd;
+    background-color: #f3f3f3;
+    min-width: 100px;
+    min-height: 30px;
+    margin: auto;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    padding-top: 10px;
 }

@@ -1,7 +1,11 @@
 .header{
-    height: 40px;
+    height: 60px;
     width: 100%;
     background-color: black;
+}
+.header-button{
+    height: 60px;
+    width: 60px;
 }
 .dialog_text{
     margin-bottom: 20px !important;
@@ -16,4 +20,12 @@
     position: absolute;
     right: 0;
     top: 0;
+}
+.header-button-icon {
+    height: 30px !important;
+    width: 30px !important;
+}
+.header-logo-icon {
+    height: 40px !important;
+    width: 40px  !important;
 }

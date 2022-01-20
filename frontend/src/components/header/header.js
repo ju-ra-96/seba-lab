@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton'
 import InsightsIcon from '@mui/icons-material/Insights';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
 import CreateDialog from '../dialogs/createDialog';
 import useStore from "../../services/useStore";
 import './header.css';
@@ -17,21 +17,24 @@ const Header = () => {
   const handleLogo = () => {
     navigate('/clusters');
   };
+  const handleCharts = () => {
+    navigate('/charts');
+  };
 
   return <div className="header">
     <div className="header-buttons-and-logo">
-      <IconButton color="primary" aria-label="home"  onClick={handleLogo}>
-        <InsightsIcon />
+      <IconButton className="header-button" color="primary" aria-label="home"  onClick={handleLogo}>
+        <InsightsIcon className="header-logo-icon" />
       </IconButton>
       <div className="header-buttons">
-        <IconButton color="primary" aria-label="Add Cluster" onClick={openCreateDialog}>
-          <AddCircleOutlineIcon />
+        <IconButton className="header-button"  color="primary" aria-label="Add Cluster" onClick={openCreateDialog}>
+          <AddCircleOutlineIcon className="header-button-icon" />
         </IconButton>
-        <IconButton color="primary" aria-label="Notifications">
-          <NotificationsOutlinedIcon />
+        <IconButton className="header-button" color="primary" aria-label="Notifications">
+          <NotificationsOutlinedIcon className="header-button-icon" />
         </IconButton>
-        <IconButton color="primary" aria-label="Settings">
-          <SettingsOutlinedIcon />
+        <IconButton className="header-button" color="primary" aria-label="BarChart" onClick={handleCharts}>
+          <BarChartOutlinedIcon className="header-button-icon" />
         </IconButton>
       </div>
       <CreateDialog />

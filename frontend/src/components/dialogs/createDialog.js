@@ -31,7 +31,7 @@ export function CreateDialog() {
 
     const onSubmit = async (e) => {
      
-        if ( ( name.length > 4 ) && ( file != null ) && (!file.toString().includes(".")) ){
+        if ( ( name.length > 4 ) && ( file != null ) && (!file.name.includes(".")) ){
             const selectedFile = new FormData()
             selectedFile.append('file', file)
             let axiosConfig = {
@@ -47,14 +47,14 @@ export function CreateDialog() {
 
             setName("")
             setFile(null)
-            axios.post('http://localhost:8000/upload', selectedFile, axiosConfig)
-                  .then((response) => {
-                  }).catch((e) => {
-                    toast.configure()
-                    toast.error('Error creating the cluster')
-            });
             axios.post('http://localhost:8000/api/cluster/createCluster', data, axiosConfig)
                 .then((response) => {
+                    axios.post('http://localhost:8000/upload', selectedFile, axiosConfig)
+                    .then((response) => {
+                    }).catch((e) => {
+                      toast.configure()
+                      toast.error('Error creating the cluster')
+                  });
                     addCluster(data)
                     toast.configure()
                     toast.success('Cluster created successfully')
@@ -71,7 +71,7 @@ export function CreateDialog() {
             } 
             if ( file == null ) {
                 toast.error('Please upload a config file for the cluster')
-            } else if  ( file.toString().includes(".") ) {
+            } else if  ( file.name.includes(".") ) {
                 toast.error('Please upload a config file (without extention) for the cluster')
             } 
         }

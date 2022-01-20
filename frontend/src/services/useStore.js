@@ -7,23 +7,24 @@ const useStore = create((set) => ({
     file: null,
     name: "",
     clusters: [],
-    pods: [],
-    namespaces: [],
-    services: [],
-    nodes: [],
+    podNames: [],
+    podReady: [],
+    podStatus: [],
+    podRestart: [],
+    podAge: [],
+
+
+    setPodName: (podNames) =>
+    set((state) => ({ podNames: podNames })),
+    setPodReady: (podReady) =>
+    set((state) => ({ podReady: podReady })),
+    setPodStatus: (podStatus) =>
+    set((state) => ({ podStatus: podStatus })),
+    setPodRestart: (podRestart) =>
+    set((state) => ({ podRestart: podRestart })),
+    setPodAge: (podAge) =>
+    set((state) => ({ podAge: podAge })),
     
-    setPods: (pods) =>
-    set((state) => ({ pods: pods })),
-    
-    setNamespaces: (namespaces) =>
-    set((state) => ({ namespaces: namespaces })),
-
-    setNodes: (nodes) =>
-    set((state) => ({ nodes: nodes })),
-
-    setServices: (services) =>
-    set((state) => ({ services: services })),
-
     openDeleteDialog: () =>
         set((state) => ({ deleteDialogState: true })),
 

@@ -15,17 +15,25 @@ export function DeleteDialog(props) {
     const deleteDialogState = useStore((state) => state.deleteDialogState);
     const closeDeleteDialog = useStore((state) => state.closeDeleteDialog);
     const removeCluster = useStore((state) => state.removeCluster);
-    
+
+    const onCancel = async (e) => {
+        e.preventDefault();
+        localStorage.removeItem('deleteId');
+        localStorage.removeItem('deleteName');
+        closeDeleteDialog();
+    }
+
     const deleteCluster = async (e) => {
         e.preventDefault();
+        let clusterToBeRemoved = localStorage.getItem('deleteId');
         const config = {
             Headers: {
                 "Content-Type": "application/json",
             },
         };
-        await axios.delete('http://localhost:8000/api/cluster/deleteCluster/' + props.id, config)
+        await axios.delete('http://localhost:8000/api/cluster/deleteCluster/' + clusterToBeRemoved, config)
             .then(
-                removeCluster(props.id),
+                removeCluster(clusterToBeRemoved),
                 toast.configure(),
                 toast.success('cluster deleted successfully'),
             )
@@ -33,19 +41,20 @@ export function DeleteDialog(props) {
                 toast.configure()
                 toast.error('Error deleting the cluster')
             });
-
+        localStorage.removeItem('deleteId');
+        localStorage.removeItem('deleteName');
         closeDeleteDialog();
     }
 
-    return <Dialog  key={props.id} open={deleteDialogState} onClose={closeDeleteDialog}>
-        <DialogTitle>Delete {props.name}</DialogTitle>
+    return <Dialog key={props.id} open={deleteDialogState} onClose={closeDeleteDialog}>
+        <DialogTitle>Delete {localStorage.getItem('deleteName')}</DialogTitle>
         <DialogContent>
             <DialogContentText>
                 Are you sure you would like to delete this cluster ?
             </DialogContentText>
         </DialogContent>
         <DialogActions>
-            <Button onClick={closeDeleteDialog}>Cancel</Button>
+            <Button onClick={onCancel}>Cancel</Button>
             <Button onClick={deleteCluster}>Delete</Button>
         </DialogActions>
     </Dialog>
