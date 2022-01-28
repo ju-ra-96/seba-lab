@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Cluster from '../../components/cluster/cluster'
 import axios from 'axios'
 import useStore from '../../services/useStore'
