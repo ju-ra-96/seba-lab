@@ -12,8 +12,9 @@ const AlertNotify = () => {
     queueUrl: 'https://sqs.eu-central-1.amazonaws.com/704085658970/alert-queue',
     handleMessage: async (message) => {
       console.log(message)
-      console.log('data inside')
+
       const alertObj = fromStringToJson(message.Body)
+
       console.log(alertObj)
       if (alertObj.groupLabels.severity === 'error') {
         toast.error(<Msg alertObj={alertObj} />, {
@@ -24,6 +25,7 @@ const AlertNotify = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+          closeButton: false,
         })
       } else {
         toast.warn(<Msg alertObj={alertObj} />, {
@@ -34,6 +36,7 @@ const AlertNotify = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+          closeButton: false,
         })
       }
     },
@@ -52,13 +55,15 @@ const AlertNotify = () => {
     return jsonObj
   }
 
-  console.log(alert)
   console.log(app.isRunning)
 
   const Msg = ({ alertObj }) => (
     <div>
-      <h2>{alertObj.groupLabels.severity}</h2>
-      <h4>{alertObj.groupLabels.alertname}</h4>
+      <h2>Severity: {alertObj.groupLabels.severity}</h2>
+      <h4>Cluster: {alertObj.groupLabels.cluster}</h4>
+      <h5>Alert: {alertObj.groupLabels.alertname}</h5>
+      <br />
+      <label>Summary: </label>
       <p> {alertObj.commonAnnotations.summary} </p>
     </div>
   )
