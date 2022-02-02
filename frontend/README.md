@@ -4,6 +4,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+For starting websocket server from backend folder run
+
+### `node socket`
+
+For starting websocket client from services folder in frontend run
+
+### `node metricsService`
+
 In the project directory, you can run:
 
 ### `npm start`
