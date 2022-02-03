@@ -7,6 +7,20 @@ import Heatmap from './heatmap'
 import LineChart from './linechart'
 import Radarchart from './radarchart';
 import Treemap from './treemap';
+const io = require('socket.io-client');
+const ioClient = io.connect("http://localhost:8000");
+
+ioClient.on("CPU", (metrics) => {
+    console.log('Got CPU metrics: ', metrics);
+});
+
+ioClient.on("RAM", (metrics) => {
+    console.log('Got RAM metrics: ', metrics);
+});
+
+ioClient.on("Disk", (metrics) => {
+    console.log('Got Disk usage metrics: ', metrics);
+});
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -50,8 +64,7 @@ export default function Graphs() {
           p: 1,
           m: 1,
           bgcolor: 'dark',
-          maxWidth: 2160
-          , 
+          maxWidth: 2160, 
           borderRadius: 1,
         }}
       >
