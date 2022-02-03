@@ -4,10 +4,10 @@ import Box from "@mui/material/Box";
 import Chart from "./charts";
 import Gauge from "./gauge";
 import Heatmap from "./heatmap";
-import LineChart from "./linechart";
+import LineChart from "./line";
 import Radarchart from "./radarchart";
 import Treemap from "./treemap";
-import StackedChart from "./stackedchart";
+import AreaChart from "./areachart";
 import data from "./data";
 
 function Item(props) {
@@ -78,7 +78,7 @@ export default function Graphs() {
         <Radarchart />
       </Item>
       <Item>
-        <StackedChart />
+        <AreaChart />
       </Item>
       <Item>
         <Treemap data={data} height={400} width={600} />
