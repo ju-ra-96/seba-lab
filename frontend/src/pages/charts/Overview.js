@@ -7,6 +7,8 @@ import Heatmap from './heatmap'
 import LineChart from './linechart'
 import Radarchart from './radarchart';
 import Treemap from './treemap';
+import StackedChart from './stackedchart';
+import data from './data';
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -43,18 +45,6 @@ Item.propTypes = {
 export default function Graphs() {
   return (
     <div style={{ width: '100%' }}>
-     <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          p: 1,
-          m: 1,
-          bgcolor: 'dark',
-          maxWidth: 2160
-          , 
-          borderRadius: 1,
-        }}
-      >
           <Item><Gauge /></Item>
           <Item><Gauge /></Item>
           <Item><Gauge /></Item>
@@ -63,11 +53,9 @@ export default function Graphs() {
         <Item></Item>
         <Item><LineChart /></Item>
         <Item><Radarchart /></Item>
-        <Item><Treemap /> </Item>
-        <Item>Item 3</Item>
-        <Item>Item 3</Item>
-        <Item>Item 3</Item>
-      </Box>
+        <Item><StackedChart /></Item>
+        <Item><Treemap data={data} height={400} width={600} /></Item>
+     
     </div>
   );
 }
