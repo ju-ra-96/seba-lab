@@ -5,7 +5,7 @@ import AWS from 'aws-sdk'
 
 import { Consumer } from 'sqs-consumer'
 
-AWS.config.update({ accessKeyId: '', secretAccessKey: '', region: 'us-east-1' })
+AWS.config.update({ accessKeyId: 'AKIA2H3WGRVNEOXPLXGH', secretAccessKey: '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', region: 'us-east-1' })
 
 const AlertNotify = () => {
   const app = Consumer.create({
