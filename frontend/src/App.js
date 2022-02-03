@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from './components/header/header';
 import Clusters from "./pages/clusters/clusters";
-import Overview from "./pages/overview/overview";
+import Pods from "./pages/pods/pods";
 import Charts from "./pages/charts/charts";
 import Graphs from './pages/charts/Overview'
 import SampleDashboard from './pages/grafana-integration/grafana-integration';
@@ -19,7 +19,7 @@ export default function App() {
       <Routes>
         <Route path="/clusters" element={<Clusters />} />
         <Route path="/charts" element={<Charts />} />
-        <Route path="/overview/:id" element={<Overview />} />
+        <Route path="/pods/:id" element={<Pods />} />
         <Route path="/dashboard/:id" element={<SampleDashboard />} />
         <Route path="/graphs" element={<Graphs />} />
         <Route path="/" element={<Navigate to ="/clusters" />}/>

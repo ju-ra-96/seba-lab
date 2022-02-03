@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import './overview.css';
+import './pods.css';
 import useStore from "../../services/useStore";
 
-export function Overview(props) {
+export function Pods(props) {
 
     useEffect(() => {
         getInfo();
@@ -29,7 +29,7 @@ export function Overview(props) {
                 "Content-Type": "application/json",
             },
         };
-        await axios.get('http://localhost:8000/api/cluster/getPods/' + window.location.pathname.slice(10), axiosConfig)
+        await axios.get('http://localhost:8000/api/cluster/getPods/' + window.location.pathname.slice(6), axiosConfig)
             .then(res => {
                 trimPods(res.data.pods);
             })
@@ -105,4 +105,4 @@ export function Overview(props) {
     );
 };
 
-export default Overview;
+export default Pods;
