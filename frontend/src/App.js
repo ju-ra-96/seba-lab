@@ -9,11 +9,13 @@ import SampleDashboard from './pages/grafana-integration/grafana-integration';
 import  { Navigate } from 'react-router-dom'
 
 import './App.css'
+import AlertNotify from './components/alert/AlertNotify'
 
 export default function App() {
   return (
     <Router>
       <Header />
+      <AlertNotify />
       <Routes>
         <Route path="/clusters" element={<Clusters />} />
         <Route path="/charts" element={<Charts />} />
@@ -23,5 +25,5 @@ export default function App() {
         <Route path="/" element={<Navigate to ="/clusters" />}/>
       </Routes>
     </Router>
-  );
+  )
 }
