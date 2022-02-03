@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import * as React from 'react';
+
 
 export default function Treemap({ data, width, height }) {
   const svgRef = useRef(null);
