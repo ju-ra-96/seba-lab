@@ -15,7 +15,7 @@ export default function Cluster(props) {
 
   const navigate = useNavigate();
   const navigateToStatus = () => {
-    navigate('/overview/' + props.id);
+    navigate('/pods/' + props.id);
   };
   const navigateToGraph = () => {
     navigate('/dashboard/' + props.id);
