@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import Chart from './charts';
 import Gauge from './gauge';
 import Heatmap from './heatmap'
+import LineChart from './linechart'
+import Radarchart from './radarchart';
+import Treemap from './treemap';
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -57,10 +60,10 @@ export default function Graphs() {
           <Item><Gauge /></Item>
         <Item><Chart /></Item>
         <Item><Heatmap /></Item>
-        <Item> </Item>
-        <Item>Item 3</Item>
-        <Item>Item 3</Item>
-        <Item>Item 3</Item>
+        <Item></Item>
+        <Item><LineChart /></Item>
+        <Item><Radarchart /></Item>
+        <Item><Treemap /> </Item>
         <Item>Item 3</Item>
         <Item>Item 3</Item>
         <Item>Item 3</Item>
