@@ -18,7 +18,7 @@ export default function Cluster(props) {
     navigate('/overview/' + props.id);
   };
   const navigateToGraph = () => {
-    navigate('/dashboard');
+    navigate('/dashboard/' + props.id);
   };
   const onDelete = async (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ export default function Cluster(props) {
           {props.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          id: {props.id}
+          identifier: {props.id}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           config: {props.config.substring(7)}
@@ -48,7 +48,7 @@ export default function Cluster(props) {
       </CardContent>
       <CardActions className="cluster_buttons">
         <Button onClick={navigateToGraph} size="small">Graph</Button>
-        <Button onClick={navigateToStatus} size="small">Status</Button>
+        <Button onClick={navigateToStatus} size="small">Pods</Button>
         <Button onClick={onDelete} size="small">Delete</Button>
       </CardActions>
       <DeleteDialog key={props.id} name={props.name} id={props.id} />

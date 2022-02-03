@@ -6,6 +6,7 @@ const useStore = create((set) => ({
     createDialogState: false,
     file: null,
     name: "",
+    id: "",
     clusters: [],
     podNames: [],
     podReady: [],
@@ -15,16 +16,16 @@ const useStore = create((set) => ({
 
 
     setPodName: (podNames) =>
-    set((state) => ({ podNames: podNames })),
+        set((state) => ({ podNames: podNames })),
     setPodReady: (podReady) =>
-    set((state) => ({ podReady: podReady })),
+        set((state) => ({ podReady: podReady })),
     setPodStatus: (podStatus) =>
-    set((state) => ({ podStatus: podStatus })),
+        set((state) => ({ podStatus: podStatus })),
     setPodRestart: (podRestart) =>
-    set((state) => ({ podRestart: podRestart })),
+        set((state) => ({ podRestart: podRestart })),
     setPodAge: (podAge) =>
-    set((state) => ({ podAge: podAge })),
-    
+        set((state) => ({ podAge: podAge })),
+
     openDeleteDialog: () =>
         set((state) => ({ deleteDialogState: true })),
 
@@ -40,19 +41,22 @@ const useStore = create((set) => ({
     setFile: (file) =>
         set((state) => ({ file: file })),
 
+    setId: (id) =>
+        set((state) => ({ id: id })),
+
     setName: (name) =>
         set((state) => ({ name: name })),
 
     setClusters: (clusters) =>
-    set((state) => ({ clusters: clusters })),
+        set((state) => ({ clusters: clusters })),
 
 
     addCluster: (cluster) =>
         set((state) => ({
-            clusters : [
+            clusters: [
                 state.clusters.push(cluster),
             ]
-    })),
+        })),
 
     removeCluster: (id) =>
         set((state) => ({

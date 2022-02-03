@@ -14,12 +14,18 @@ import useStore from "../../services/useStore";
 export function CreateDialog() {
 
     const createDialogState = useStore((state) => state.createDialogState);
+    const id = useStore((state) => state.id);
     const name = useStore((state) => state.name);
     const file = useStore((state) => state.file);
     const closeCreateDialog = useStore((state) => state.closeCreateDialog);
     const addCluster = useStore((state) => state.addCluster);
+    const setId = useStore((state) => state.setId);
     const setName = useStore((state) => state.setName);
     const setFile = useStore((state) => state.setFile);
+
+    const onInputChangeId = (e) => {
+        setId(e.target.value)
+    };
 
     const onInputChangeName = (e) => {
         setName(e.target.value)
@@ -30,8 +36,7 @@ export function CreateDialog() {
     };
 
     const onSubmit = async (e) => {
-     
-        if ( ( name.length > 4 ) && ( file != null ) && (!file.name.includes(".")) ){
+        if ((name.length > 4) && (id.length > 4) && (file != null) && (!file.name.includes("."))) {
             const selectedFile = new FormData()
             selectedFile.append('file', file)
             let axiosConfig = {
@@ -40,21 +45,22 @@ export function CreateDialog() {
                 }
             };
             let data = {
-                'id': Math.floor(Math.random() * 100000),
+                'index': Math.floor(Math.random() * 100000),
+                'id': id,
                 'name': name,
-                'config': "public/"+file.name,
+                'config': "public/" + file.name,
             };
-
+            setId("")
             setName("")
             setFile(null)
             axios.post('http://localhost:8000/api/cluster/createCluster', data, axiosConfig)
                 .then((response) => {
                     axios.post('http://localhost:8000/upload', selectedFile, axiosConfig)
-                    .then((response) => {
-                    }).catch((e) => {
-                      toast.configure()
-                      toast.error('Error creating the cluster')
-                  });
+                        .then((response) => {
+                        }).catch((e) => {
+                            toast.configure()
+                            toast.error('Error creating the cluster')
+                        });
                     addCluster(data)
                     toast.configure()
                     toast.success('Cluster created successfully')
@@ -63,17 +69,20 @@ export function CreateDialog() {
                     toast.configure()
                     toast.error('Error creating the cluster')
                 });
-                closeCreateDialog();
+            closeCreateDialog();
         } else {
             toast.configure()
-            if (name.length < 5){
+            if (id.length < 5) {
+                toast.error('the id of the cluster should contain at least 5 characters')
+            }
+            if (name.length < 5) {
                 toast.error('the name of the cluster should contain at least 5 characters')
-            } 
-            if ( file == null ) {
+            }
+            if (file == null) {
                 toast.error('Please upload a config file for the cluster')
-            } else if  ( file.name.includes(".") ) {
+            } else if (file.name.includes(".")) {
                 toast.error('Please upload a config file (without extention) for the cluster')
-            } 
+            }
         }
     }
 
@@ -81,9 +90,20 @@ export function CreateDialog() {
         <DialogTitle>Add a cluster</DialogTitle>
         <DialogContent>
             <DialogContentText className="dialog_text">
-                Please enter the name and the config file of the Kubernetes cluster you want to monitor.
+                Please enter the id, the name and the config file of the Kubernetes cluster you want to monitor.
             </DialogContentText>
             <form method="post" action="#" id="#">
+                <TextField
+                    style={{ marginBottom:'10px' }}
+                    autoFocus
+                    onChange={onInputChangeId}
+                    id="id"
+                    label="Id"
+                    className="cluster_id"
+                    type="text"
+                    fullWidth
+                    required
+                />
                 <TextField
                     autoFocus
                     onChange={onInputChangeName}
@@ -94,7 +114,7 @@ export function CreateDialog() {
                     fullWidth
                     required
                 />
-                 <input type="file" name="file" onChange={onInputChangeFile}/>
+                <input type="file" name="file" onChange={onInputChangeFile} />
 
                 <DialogActions>
                     <Button onClick={closeCreateDialog}>Cancel</Button>

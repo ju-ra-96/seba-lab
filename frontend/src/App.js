@@ -17,7 +17,7 @@ export default function App() {
         <Route path="/clusters" element={<Clusters />} />
         <Route path="/charts" element={<Charts />} />
         <Route path="/overview/:id" element={<Overview />} />
-        <Route path="/dashboard" element={<SampleDashboard />} />
+        <Route path="/dashboard/:id" element={<SampleDashboard />} />
         <Route path="/" element={<Navigate to ="/clusters" />}/>
       </Routes>
     </Router>
