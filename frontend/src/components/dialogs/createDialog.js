@@ -36,7 +36,7 @@ export function CreateDialog() {
     };
 
     const onSubmit = async (e) => {
-        if ((name.length > 4) && (id.length > 4) && (file != null) && (!file.name.includes("."))) {
+        if ((name.length > 4) && (id.length > 4) && (file != null) && (file.name.includes(".yaml"))) {
             const selectedFile = new FormData()
             selectedFile.append('file', file)
             let axiosConfig = {
@@ -80,8 +80,8 @@ export function CreateDialog() {
             }
             if (file == null) {
                 toast.error('Please upload a config file for the cluster')
-            } else if (file.name.includes(".")) {
-                toast.error('Please upload a config file (without extention) for the cluster')
+            } else if (!file.name.includes(".yaml")) {
+                toast.error('Please upload a config file with the .yaml extention')
             }
         }
     }
