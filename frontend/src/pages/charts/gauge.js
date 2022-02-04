@@ -2,23 +2,24 @@ import * as d3 from 'd3';
 import './charts.css';
 import React from 'react';
 
+
 class Gauge extends React.Component {
 	render() {
-		const gaugeProps = {
+		let gaugeProps = {
 			tau: 2 * Math.PI,
 			radius: 80,
 			padding: 30,
-			amount: 75, // Adjust me
+			//amount: Math.round(this.props.metric), // Adjust me
 			total: 100, // Adjust me
-		}
+		};
 		
 		gaugeProps.boxSize = (gaugeProps.radius + gaugeProps.padding) * 2;
 		gaugeProps.ratio = gaugeProps.amount / gaugeProps.total;
 
 		return ( 
 			<section> 
-				<h2 className="bx--graph-header">Usage</h2>
-				<GaugeGraph {...gaugeProps} />
+				<h2 className="bx--graph-header">{this.props.name}</h2>
+				<GaugeGraph {...gaugeProps} amount = {this.props.metric} />
 			</section>
 			)
 	}

@@ -35,6 +35,6 @@ io.on('disconnect', (socket) => {
     console.log('A user with id ', socket.id, 'disconnected');
 })
 
-server.listen(8000);
+server.listen(4000);
 emit_metrics();
 

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from 'react';
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Chart from "./charts";
@@ -10,19 +11,19 @@ import Treemap from "./treemap";
 import AreaChart from "./areachart";
 import data from "./data";
 const io = require('socket.io-client');
-const ioClient = io.connect("http://localhost:8000");
+const ioClient = io.connect("http://localhost:4000", { transports : ['websocket'] });
 
-ioClient.on("CPU", (metrics) => {
-    console.log('Got CPU metrics: ', metrics);
-});
+// ioClient.on("CPU", (metrics) => {
+//     console.log('Got CPU metrics: ', metrics);
+// });
 
-ioClient.on("RAM", (metrics) => {
-    console.log('Got RAM metrics: ', metrics);
-});
+// ioClient.on("RAM", (metrics) => {
+//     console.log('Got RAM metrics: ', metrics);
+// });
 
-ioClient.on("Disk", (metrics) => {
-    console.log('Got Disk usage metrics: ', metrics);
-});
+// ioClient.on("Disk", (metrics) => {
+//     console.log('Got Disk usage metrics: ', metrics);
+// });
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -58,11 +59,28 @@ Item.propTypes = {
   ]),
 };
 
+
 export default function Graphs() {
+  let [cpuMetrics, setCpuMetrics] = useState([]);
+	
+	ioClient.on("CPU", (metrics) => {
+		console.log('Got CPU metrics: ', metrics);
+		let updated_data = [];
+		for (var cluster_name of Object.keys(metrics)) {
+			updated_data.push({cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1]))});
+			//console.log('Result part is ', metrics[cluster_name].result[0].value[1]);
+		}
+		setCpuMetrics(updated_data);
+	});
+
   return (
     <div>
-      <Box display="flex" justifyContent="center" alignItems="center">
+      {/* <Box display="flex" justifyContent="center" alignItems="center">
+        {(cpuMetrics.map((metric) => 
         <Item>
+          <Gauge name={'CPU of ' + metric.cluster} metric={metric.load} />
+        </Item>))} */}
+        {/* <Item>
           <Gauge />
         </Item>
         <Item>
@@ -76,10 +94,13 @@ export default function Graphs() {
         </Item>
         <Item>
           <Gauge />
-        </Item>
-      </Box>
+        </Item> */}
+      {/* </Box> */}
       <Item>
-        <Chart />
+          <Gauge name={'CPU of ' + (cpuMetrics.length > 0 ? cpuMetrics[0].cluster : 'unknown cluster')} metric={(cpuMetrics.length > 0 ? cpuMetrics[0].load : 0)} />
+        </Item>
+      <Item>
+        <Chart cpuMetrics = {cpuMetrics} />
       </Item>
       <Item>
         <Heatmap />
