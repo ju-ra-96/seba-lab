@@ -1,9 +1,9 @@
 import React from "react";
 import { LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-class Linechart extends React.Component {
+function Linechart(props) {
 
-    data = [
+    const data = [
         {
             "name": "Jan 2019",
             "Product A": 3432,
@@ -31,9 +31,8 @@ class Linechart extends React.Component {
         }
     ]
 
-    render() {
         return (
-            <LineChart width={730} height={250} data={this.data}
+            <LineChart width={730} height={250} data={data}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
@@ -43,8 +42,7 @@ class Linechart extends React.Component {
                 <Line type="monotone" dataKey="Product A" stroke="#0095FF" />
                 <Line type="monotone" dataKey="Procuct B" stroke="#FF0000" />
             </LineChart>
-        )
-    };
+        );
 }
 
 export default Linechart;

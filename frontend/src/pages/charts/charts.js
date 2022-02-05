@@ -28,7 +28,7 @@ const Chart = (props) => {
 	useEffect(() => {
 
 		// Listen for any resize event update
-		window.addEventListener('resize', () => {
+	/* 	window.addEventListener('resize', () => {
 			setDimensions({
                 width: window.innerWidth,
                 height: window.innerHeight
@@ -40,12 +40,12 @@ const Chart = (props) => {
 			} else {
 				update.current = true;
 			}
-		})
+		}) */
 
 		// Draw chart using the data and updated dimensions
-		DrawChart(props.cpuMetrics, dimensions);
+		DrawChart(props.ramMetrics, dimensions);
 
-	},[dimensions, props.cpuMetrics])
+	},[dimensions, props.ramMetrics])
 
 	const margin = {top: 50, right:30, bottom: 30, left:60};
 

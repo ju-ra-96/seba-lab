@@ -91,12 +91,9 @@ export default function Graphs() {
           <Gauge name={'CPU of ' + metric.cluster} metric={metric.load} />
         </Item>))}
       </Box>
-      <Item>
+    {/*   <Item>
         <Chart cpuMetrics = {cpuMetrics} />
-      </Item>
-      <Item>
-        <Heatmap />
-      </Item>
+      </Item> */}
       <Item></Item>
       <Item>
         <LineChart />
@@ -106,9 +103,6 @@ export default function Graphs() {
       </Item>
       <Item>
         <AreaChart />
-      </Item>
-      <Item>
-        <Treemap data={data} height={400} width={600} />
       </Item>
     </div>
   );

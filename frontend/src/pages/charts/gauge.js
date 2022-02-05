@@ -33,7 +33,14 @@ class GaugeGraph extends React.Component {
 		this.renderText(amount, total);
 	}
 
-	componentDidUpdate() {
+	/* componentDidUpdate() {
+		const { tau, radius, padding, amount, total, boxSize, ratio } = this.props;
+		
+		this.renderSVG(radius, boxSize, tau, ratio);
+		this.renderText(amount, total);
+	} */
+
+	shouldComponentUpdate() {
 		const { tau, radius, padding, amount, total, boxSize, ratio } = this.props;
 		
 		this.renderSVG(radius, boxSize, tau, ratio);
