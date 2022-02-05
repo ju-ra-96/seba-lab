@@ -73,32 +73,24 @@ export default function Graphs() {
 		setCpuMetrics(updated_data);
 	});
 
+  ioClient.on("RAM", (metrics) => {
+    console.log('Got RAM metrics: ', metrics);
+    let updated_data = [];
+		for (var cluster_name of Object.keys(metrics)) {
+      console.log(metrics[cluster_name].result);
+			//updated_data.push({cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1]))});
+			//console.log('Result part is ', metrics[cluster_name].result[0].value[1]);
+		}
+  });
+
   return (
     <div>
-      {/* <Box display="flex" justifyContent="center" alignItems="center">
+       <Box display="flex" justifyContent="center" alignItems="center">
         {(cpuMetrics.map((metric) => 
         <Item>
           <Gauge name={'CPU of ' + metric.cluster} metric={metric.load} />
-        </Item>))} */}
-        {/* <Item>
-          <Gauge />
-        </Item>
-        <Item>
-          <Gauge />
-        </Item>
-        <Item>
-          <Gauge />
-        </Item>
-        <Item>
-          <Gauge />
-        </Item>
-        <Item>
-          <Gauge />
-        </Item> */}
-      {/* </Box> */}
-      <Item>
-          <Gauge name={'CPU of ' + (cpuMetrics.length > 0 ? cpuMetrics[0].cluster : 'unknown cluster')} metric={(cpuMetrics.length > 0 ? cpuMetrics[0].load : 0)} />
-        </Item>
+        </Item>))}
+      </Box>
       <Item>
         <Chart cpuMetrics = {cpuMetrics} />
       </Item>

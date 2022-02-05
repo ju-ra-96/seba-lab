@@ -9,7 +9,7 @@ class Gauge extends React.Component {
 			tau: 2 * Math.PI,
 			radius: 80,
 			padding: 30,
-			//amount: Math.round(this.props.metric), // Adjust me
+			amount: Math.round(this.props.metric), // Adjust me
 			total: 100, // Adjust me
 		};
 		
@@ -19,7 +19,7 @@ class Gauge extends React.Component {
 		return ( 
 			<section> 
 				<h2 className="bx--graph-header">{this.props.name}</h2>
-				<GaugeGraph {...gaugeProps} amount = {this.props.metric} />
+				<GaugeGraph {...gaugeProps} />
 			</section>
 			)
 	}
@@ -27,6 +27,13 @@ class Gauge extends React.Component {
 
 class GaugeGraph extends React.Component {
 	componentDidMount() {
+		const { tau, radius, padding, amount, total, boxSize, ratio } = this.props;
+		
+		this.renderSVG(radius, boxSize, tau, ratio);
+		this.renderText(amount, total);
+	}
+
+	componentDidUpdate() {
 		const { tau, radius, padding, amount, total, boxSize, ratio } = this.props;
 		
 		this.renderSVG(radius, boxSize, tau, ratio);
