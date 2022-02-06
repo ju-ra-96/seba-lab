@@ -12,6 +12,7 @@ import Treemap from './treemap'
 import AreaChart from './areachart'
 import data from './data'
 import Speedometer from './Speedometer'
+import BubbleLoader from '../loader/BubbleLoader'
 const io = require('socket.io-client')
 
 // ioClient.on("CPU", (metrics) => {
@@ -135,7 +136,9 @@ export default function Graphs() {
     return () => {}
   }, [])
 
-  return (
+  return cpuMetrics.length === 0 ? (
+    <BubbleLoader />
+  ) : (
     <div
       style={{
         padding: 20,
@@ -200,11 +203,11 @@ export default function Graphs() {
       </Box>
 
       {/* <Item>
-        <Radarchart />
-      </Item>
-      <Item>
-        <AreaChart />
-      </Item> */}
+          <Radarchart />
+        </Item>
+        <Item>
+          <AreaChart />
+        </Item> */}
     </div>
   )
 }
