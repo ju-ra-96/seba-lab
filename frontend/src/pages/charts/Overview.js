@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Box from '@mui/material/Box'
 import Chart from './charts'
 import Gauge from './gauge'
+import GaugeChart from './gauge-new'
 import Heatmap from './heatmap'
 import LineChart from './line'
 import Radarchart from './radarchart'
@@ -132,7 +133,7 @@ export default function Graphs() {
           </Item>
         )}
       </Box>
-
+      < GaugeChart/>
       <Item>
         <Radarchart />
       </Item>
