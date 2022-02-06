@@ -54,16 +54,10 @@ Item.propTypes = {
 export default function Graphs() {
   const [cpuMetrics, setCpuMetrics] = useState([])
   const [cpuMetricsChunk, setCpuMetricsChunk] = useState([])
-
-  // ioClient.on("RAM", (metrics) => {
-  //   console.log('Got RAM metrics: ', metrics);
-  //   let updated_data = [];
-  // 	for (var cluster_name of Object.keys(metrics)) {
-  //     console.log(metrics[cluster_name].result);
-  // 		//updated_data.push({cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1]))});
-  // 		//console.log('Result part is ', metrics[cluster_name].result[0].value[1]);
-  // 	}
-  // });
+  const [ramMetrics, setRamMetrics] = useState([])
+  const [ramMetricsChunk, setRamMetricsChunk] = useState([])
+  const [diskMetrics, setDiskMetrics] = useState([])
+  const [diskMetricsChunk, setDiskMetricsChunk] = useState([])
 
   useEffect(() => {
     const ioClient = io.connect('http://localhost:4000', { transports: ['websocket'] })
@@ -92,6 +86,52 @@ export default function Graphs() {
       setCpuMetricsChunk(updated_data_chunk)
     })
 
+    ioClient.on('RAM', (metrics) => {
+      console.log('Got RAM metrics: ', metrics)
+      let updated_data = []
+
+      for (var cluster_name of Object.keys(metrics)) {
+        updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        console.log('Result part is ', metrics[cluster_name].result[0].value[1], cluster_name)
+      }
+      setRamMetrics(updated_data)
+    })
+
+    ioClient.on('RAM_over_time', (metrics) => {
+      console.log('RAM_over_time metrics: ', metrics)
+      let updated_data_chunk = []
+
+      for (var cluster_name of Object.keys(metrics)) {
+        updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
+        console.log('RAMResult part is ', metrics)
+      }
+      console.log(updated_data_chunk)
+      setRamMetricsChunk(updated_data_chunk)
+    })
+
+    ioClient.on('Disk', (metrics) => {
+      console.log('Got Disk metrics: ', metrics)
+      let updated_data = []
+
+      for (var cluster_name of Object.keys(metrics)) {
+        updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        console.log('Result part is ', metrics[cluster_name].result[0].value[1], cluster_name)
+      }
+      setDiskMetrics(updated_data)
+    })
+
+    ioClient.on('Disk_over_time', (metrics) => {
+      console.log('Disk_over_time metrics: ', metrics)
+      let updated_data_chunk = []
+
+      for (var cluster_name of Object.keys(metrics)) {
+        updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
+        console.log('Disk Result part is ', metrics)
+      }
+      console.log(updated_data_chunk)
+      setDiskMetricsChunk(updated_data_chunk)
+    })
+
     return () => {}
   }, [])
 
@@ -99,8 +139,6 @@ export default function Graphs() {
     <div
       style={{
         padding: 20,
-        paddingLeft: 40,
-        paddingRight: 40,
         marginBottom: 50,
       }}
     >
@@ -118,16 +156,11 @@ export default function Graphs() {
             marginLeft: 30,
           }}
         >
-          ≧◠‿◠≦✌
+          ✌
         </strong>{' '}
       </div>
 
       <Box display='flex' justifyContent='center' alignItems='center'>
-        {/* {cpuMetrics.map((metric, index) => (
-          <Item key={index}>
-            <Gauge name={'CPU of ' + metric.cluster} metric={metric.load} />
-          </Item>
-        ))} */}
         {cpuMetrics.map((metric, index) => (
           <Item key={index}>
             <Speedometer title={'CPU of ' + metric.cluster} value={metric.load} />
@@ -135,16 +168,43 @@ export default function Graphs() {
         ))}
         {cpuMetricsChunk.length > 0 && (
           <Item>
-            <LineChart cpuMetrics={cpuMetricsChunk} />
+            <LineChart name={'CPU'} resourcesMetrics={cpuMetricsChunk} />
           </Item>
         )}
       </Box>
-      <Item>
+
+      <Box display='flex' justifyContent='center' alignItems='center'>
+        {ramMetricsChunk.length > 0 && (
+          <Item>
+            <LineChart name={'RAM'} resourcesMetrics={ramMetricsChunk} />
+          </Item>
+        )}
+        {ramMetrics.map((metric, index) => (
+          <Item key={index}>
+            <Speedometer title={'RAM of ' + metric.cluster} value={metric.load} />
+          </Item>
+        ))}
+      </Box>
+
+      <Box display='flex' justifyContent='center' alignItems='center'>
+        {diskMetrics.map((metric, index) => (
+          <Item key={index}>
+            <Speedometer title={'Disk of ' + metric.cluster} value={metric.load} />
+          </Item>
+        ))}
+        {diskMetricsChunk.length > 0 && (
+          <Item>
+            <LineChart name={'Disk'} resourcesMetrics={diskMetricsChunk} />
+          </Item>
+        )}
+      </Box>
+
+      {/* <Item>
         <Radarchart />
       </Item>
       <Item>
         <AreaChart />
-      </Item>
+      </Item> */}
     </div>
   )
 }

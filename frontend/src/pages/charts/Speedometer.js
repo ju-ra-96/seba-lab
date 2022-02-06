@@ -5,13 +5,12 @@ const styles = {
   dial: {
     display: 'inline-block',
     width: `300px`,
-    height: `auto`,
     color: '#000',
     border: '0.5px solid #fff',
     padding: '2px',
   },
   title: {
-    fontSize: '2em',
+    fontSize: '1.5em',
     color: '#000',
     marginBottom: 20,
   },
@@ -29,10 +28,10 @@ const Speedometer = ({ id, value, title }) => {
         value={value}
         needleTransition='easeQuadIn'
         needleTransitionDuration={1000}
-        needleColor='red'
+        needleColor='blue'
         startColor='green'
         segments={10}
-        endColor='blue'
+        endColor='red'
       />
     </div>
   )
