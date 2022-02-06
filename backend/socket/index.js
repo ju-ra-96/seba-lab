@@ -1,4 +1,4 @@
-const { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day } = require('./data_sourcing');
+const { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day, get_cpu_usage_over_day } = require('./data_sourcing');
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -20,7 +20,7 @@ async function emit_metrics() {
         io.sockets.emit("Disk", disk_metrics);
         console.log('Emitted Disk metrics');
 
-        cpu_metrics_over_time = await get_cpu_usage_over_day_abs();
+        cpu_metrics_over_time = await get_cpu_usage_over_day();
         io.sockets.emit("CPU_over_time", cpu_metrics_over_time);
         console.log('Emitted CPU metrics over time');
 

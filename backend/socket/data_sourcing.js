@@ -39,6 +39,14 @@ async function get_cpu_usage_over_day_abs() {
     return metrics;
 }
 
+async function get_cpu_usage_over_day() {
+    let metrics = {};
+    var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=(100-(avg%20by%20(cluster_name)%20(irate(node_cpu_seconds_total{mode="idle"}[5m]))*100))[1d:1h]';
+    metrics = await get_metrics(link, 'CPU over time', 'all clusters');
+    console.log('The metrics are', metrics);
+    return metrics;
+}
+
 
 async function get_ram_usage() {
     let metrics = {};
@@ -84,4 +92,4 @@ async function get_disk_usage_over_day() {
 }
 
 
-module.exports = { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day };
+module.exports = { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day, get_cpu_usage_over_day };
