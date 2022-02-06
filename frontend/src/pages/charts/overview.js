@@ -129,20 +129,15 @@ export default function Graphs() {
     >
       <div
         style={{
-          color: 'white',
-          fontSize: '30px',
+          color: '#00B9F2',
+          fontSize: '3em',
+          fontWeight: 'bold',
           justifyContent: 'center',
           margin: 40,
+          textAlign: 'center',
         }}
       >
-        Welcome to the SAP dashboard and happy monitoring{' '}
-        <strong
-          style={{
-            marginLeft: 30,
-          }}
-        >
-          ✌
-        </strong>{' '}
+        Welcome to the SAP dashboard and happy monitoring!
       </div>
 
       <Box display='flex' justifyContent='center' alignItems='center'>

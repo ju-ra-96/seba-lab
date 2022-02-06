@@ -37,6 +37,7 @@ function Linechart(props) {
         style={{
           fontSize: '1.5em',
           color: '#000',
+          textAlign: 'center',
         }}
       >
         {props.name} usage

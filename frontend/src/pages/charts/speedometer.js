@@ -8,12 +8,13 @@ const styles = {
     width: `300px`,
     color: '#000',
     border: '0.5px solid #fff',
-    padding: '2px',
+    //padding: '2px',
   },
   title: {
     fontSize: '1.5em',
     color: '#000',
-    marginBottom: 20,
+    margin: 20,
+    textAlign: 'center',
   },
 }
 
@@ -22,13 +23,13 @@ const Speedometer = ({ id, value, title, clusterName }) => {
     <div style={styles.dial}>
       <div style={styles.title}>
         {' '}
-        <Link to={`/dashboard/${clusterName}`}>{title}</Link>
+        <Link to={`/dashboard/${clusterName}`} style={{ textDecoration: 'none' }}>{title}</Link>
       </div>
 
       <ReactSpeedometer
         maxValue={100}
         minValue={0}
-        height={250}
+        height={200}
         width={290}
         value={value}
         needleTransition='easeQuadIn'
