@@ -12,6 +12,8 @@ class Gauge extends React.Component {
       total: 100, // Adjust me
     }
 
+    console.log(this.props.metric, this.props.name)
+
     gaugeProps.boxSize = (gaugeProps.radius + gaugeProps.padding) * 2
     gaugeProps.ratio = gaugeProps.amount / gaugeProps.total
 
@@ -28,12 +30,16 @@ class GaugeGraph extends React.Component {
   componentDidMount() {
     const { tau, radius, padding, amount, total, boxSize, ratio } = this.props
 
+    console.log('propsssss', tau, padding, amount, total, boxSize, ratio)
+
     this.renderSVG(radius, boxSize, tau, ratio)
     this.renderText(amount, total)
   }
 
   componentDidUpdate() {
     const { tau, radius, padding, amount, total, boxSize, ratio } = this.props
+
+    console.log('update p', tau, padding, amount, total, boxSize, ratio)
 
     this.renderSVG(radius, boxSize, tau, ratio)
     this.renderText(amount, total)

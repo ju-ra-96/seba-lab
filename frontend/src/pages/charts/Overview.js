@@ -51,7 +51,7 @@ Item.propTypes = {
 
 export default function Graphs() {
   const [cpuMetrics, setCpuMetrics] = useState([])
-  const [cpuGeneral, setCpuGeneral] = useState([])
+  const [cpuMetricsChunk, setCpuMetricsChunk] = useState([])
 
   // ioClient.on("RAM", (metrics) => {
   //   console.log('Got RAM metrics: ', metrics);
@@ -68,14 +68,26 @@ export default function Graphs() {
 
     ioClient.on('CPU', (metrics) => {
       console.log('Got CPU metrics: ', metrics)
-      setCpuGeneral(metrics)
       let updated_data = []
 
       for (var cluster_name of Object.keys(metrics)) {
         updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
-        //console.log('Result part is ', metrics[cluster_name].result[0].value[1]);
+        console.log('Result part is ', metrics[cluster_name].result[0].value[1], cluster_name)
       }
       setCpuMetrics(updated_data)
+    })
+
+    ioClient.on('CPU_over_time', (metrics) => {
+      console.log('CPU_over_time metrics: ', metrics)
+      let updated_data_chunk = []
+
+      metrics.result
+        .filter((result) => result.metric.cluster_name)
+        .map((result) => {
+          updated_data_chunk.push({ cluster: result.metric.cluster_name, values: result.values })
+          console.log('Result part is overtime ', updated_data_chunk)
+        })
+      setCpuMetricsChunk(updated_data_chunk)
     })
 
     return () => {}
@@ -108,18 +120,18 @@ export default function Graphs() {
         </strong>{' '}
       </div>
 
-      <Box display='grid' justifyContent='center' alignItems='center'>
+      <Box display='flex' justifyContent='center' alignItems='center'>
         {cpuMetrics.map((metric, index) => (
           <Item key={index}>
             <Gauge name={'CPU of ' + metric.cluster} metric={metric.load} />
           </Item>
         ))}
+        {cpuMetricsChunk.length > 0 && (
+          <Item>
+            <LineChart cpuMetrics={cpuMetricsChunk} />
+          </Item>
+        )}
       </Box>
-      {cpuMetrics.map((metric, index) => (
-        <Item>
-          <LineChart cpuMetrics={cpuGeneral} />
-        </Item>
-      ))}
 
       <Item>
         <Radarchart />
