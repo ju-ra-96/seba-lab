@@ -7,6 +7,7 @@ import Radarchart from './radarchart'
 import data from './data'
 import Speedometer from './speedometer'
 import BubbleLoader from '../loader/BubbleLoader'
+import { ResponsiveContainer } from 'recharts'
 const io = require('socket.io-client')
 
 function Item(props) {
@@ -142,8 +143,8 @@ export default function Graphs() {
 
       <Box display='flex' justifyContent='center' alignItems='center'>
         {cpuMetrics.map((metric, index) => (
-          <Item key={index}>
-            <Speedometer clusterName={metric.cluster} title={'CPU of ' + metric.cluster} value={metric.load} />
+          <Item key={index} style={{height:330}}>
+            <Speedometer  clusterName={metric.cluster} title={'CPU of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
         {cpuMetricsChunk.length > 0 && (
@@ -160,7 +161,7 @@ export default function Graphs() {
           </Item>
         )}
         {ramMetrics.map((metric, index) => (
-          <Item key={index}>
+          <Item key={index} style={{height:330}}>
             <Speedometer clusterName={metric.cluster} title={'RAM of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
@@ -168,8 +169,8 @@ export default function Graphs() {
 
       <Box display='flex' justifyContent='center' alignItems='center'>
         {diskMetrics.map((metric, index) => (
-          <Item key={index}>
-            <Speedometer clusterName={metric.cluster} title={'Disk of ' + metric.cluster} value={metric.load} />
+          <Item key={index} style={{height:330}}>
+            <Speedometer style={{margin:'auto'}} clusterName={metric.cluster} title={'Disk of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
         {diskMetricsChunk.length > 0 && (
