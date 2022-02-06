@@ -2,30 +2,12 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Box from '@mui/material/Box'
-import Chart from './charts'
-import Gauge from './gauge'
-import GaugeChart from './gauge-new'
-import Heatmap from './heatmap'
 import LineChart from './line'
 import Radarchart from './radarchart'
-import Treemap from './treemap'
-import AreaChart from './areachart'
 import data from './data'
-import Speedometer from './Speedometer'
+import Speedometer from './speedometer'
 import BubbleLoader from '../loader/BubbleLoader'
 const io = require('socket.io-client')
-
-// ioClient.on("CPU", (metrics) => {
-//     console.log('Got CPU metrics: ', metrics);
-// });
-
-// ioClient.on("RAM", (metrics) => {
-//     console.log('Got RAM metrics: ', metrics);
-// });
-
-// ioClient.on("Disk", (metrics) => {
-//     console.log('Got Disk usage metrics: ', metrics);
-// });
 
 function Item(props) {
   const { sx, ...other } = props
@@ -166,7 +148,7 @@ export default function Graphs() {
       <Box display='flex' justifyContent='center' alignItems='center'>
         {cpuMetrics.map((metric, index) => (
           <Item key={index}>
-            <Speedometer title={'CPU of ' + metric.cluster} value={metric.load} />
+            <Speedometer clusterName={metric.cluster} title={'CPU of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
         {cpuMetricsChunk.length > 0 && (
@@ -184,7 +166,7 @@ export default function Graphs() {
         )}
         {ramMetrics.map((metric, index) => (
           <Item key={index}>
-            <Speedometer title={'RAM of ' + metric.cluster} value={metric.load} />
+            <Speedometer clusterName={metric.cluster} title={'RAM of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
       </Box>
@@ -192,7 +174,7 @@ export default function Graphs() {
       <Box display='flex' justifyContent='center' alignItems='center'>
         {diskMetrics.map((metric, index) => (
           <Item key={index}>
-            <Speedometer title={'Disk of ' + metric.cluster} value={metric.load} />
+            <Speedometer clusterName={metric.cluster} title={'Disk of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
         {diskMetricsChunk.length > 0 && (

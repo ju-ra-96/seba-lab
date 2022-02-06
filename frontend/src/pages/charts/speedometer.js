@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactSpeedometer from 'react-d3-speedometer'
+import { Link } from 'react-router-dom'
 
 const styles = {
   dial: {
@@ -16,10 +17,14 @@ const styles = {
   },
 }
 
-const Speedometer = ({ id, value, title }) => {
+const Speedometer = ({ id, value, title, clusterName }) => {
   return (
     <div style={styles.dial}>
-      <div style={styles.title}>{title}</div>
+      <div style={styles.title}>
+        {' '}
+        <Link to={`/dashboard/${clusterName}`}>{title}</Link>
+      </div>
+
       <ReactSpeedometer
         maxValue={100}
         minValue={0}
