@@ -15,6 +15,7 @@
     "d3": "^7.3.0",
     "https": "^1.0.0",
     "react": "^17.0.2",
+    "react-d3-speedometer": "^1.0.2",
     "react-dom": "^17.0.2",
     "react-file-picker-ui": "^1.0.7",
     "react-file-reader": "^1.1.4",

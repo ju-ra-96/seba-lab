@@ -1,5 +1,5 @@
 import React from 'react'
-import { LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+import { LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 function Linechart(props) {
   console.log(props.cpuMetrics)
@@ -34,16 +34,18 @@ function Linechart(props) {
   return (
     <div style={{ width: '100%' }}>
       <h4>CPU usage</h4>
-      <LineChart width={1200} height={250} data={data_to_display} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='time' />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        {cpuMetricsChunk.map((metric, index) => (
-          <Line type='monotone' dataKey={metric.cluster} stroke={colors[index]} />
-        ))}
-      </LineChart>
+      <ResponsiveContainer width={700} height={250}>
+        <LineChart data={data_to_display} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='time' />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          {cpuMetricsChunk.map((metric, index) => (
+            <Line type='monotone' dataKey={metric.cluster} stroke={colors[index]} />
+          ))}
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   )
 }

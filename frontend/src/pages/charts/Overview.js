@@ -11,6 +11,7 @@ import Radarchart from './radarchart'
 import Treemap from './treemap'
 import AreaChart from './areachart'
 import data from './data'
+import Speedometer from './Speedometer'
 const io = require('socket.io-client')
 
 // ioClient.on("CPU", (metrics) => {
@@ -122,9 +123,14 @@ export default function Graphs() {
       </div>
 
       <Box display='flex' justifyContent='center' alignItems='center'>
-        {cpuMetrics.map((metric, index) => (
+        {/* {cpuMetrics.map((metric, index) => (
           <Item key={index}>
             <Gauge name={'CPU of ' + metric.cluster} metric={metric.load} />
+          </Item>
+        ))} */}
+        {cpuMetrics.map((metric, index) => (
+          <Item key={index}>
+            <Speedometer title={'CPU of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
         {cpuMetricsChunk.length > 0 && (
@@ -133,7 +139,6 @@ export default function Graphs() {
           </Item>
         )}
       </Box>
-      < GaugeChart/>
       <Item>
         <Radarchart />
       </Item>
