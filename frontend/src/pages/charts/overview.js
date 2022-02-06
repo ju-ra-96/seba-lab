@@ -136,9 +136,12 @@ export default function Graphs() {
           justifyContent: 'center',
           margin: 40,
           textAlign: 'center',
+          fontFamily: 'Monospace',
         }}
       >
+        <h3>
         Welcome to the SAP dashboard and happy monitoring!
+        </h3>
       </div>
 
       <Box display='flex' justifyContent='center' alignItems='center'>
