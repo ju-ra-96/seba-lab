@@ -62,6 +62,7 @@ export function CreateDialog() {
                             toast.error(e)
                         });
                     addCluster(data)
+                    window.location.reload();
                     toast.configure()
                     toast.success('Cluster created successfully')
                 })
