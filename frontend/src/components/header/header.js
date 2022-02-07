@@ -8,16 +8,17 @@ import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined'
 import CreateDialog from '../dialogs/createDialog'
 import useStore from '../../services/useStore'
 import './header.css'
+import k8s from '../../assets/kubernetesBlue.png'
 
 const Header = () => {
   const openCreateDialog = useStore((state) => state.openCreateDialog)
   const navigate = useNavigate()
 
   const handleHome = () => {
-    navigate('/clusters')
+    navigate('/overview')
   }
-  const handleGraphs = () => {
-    navigate('/graphs')
+  const handleClusters = () => {
+    navigate('/clusters')
   }
 
   return (
@@ -31,8 +32,9 @@ const Header = () => {
           <IconButton className='header-button' aria-label='Home' onClick={handleHome}>
             <HomeOutlinedIcon className='header-button-icon' />
           </IconButton>
-          <IconButton className='header-button' aria-label='BarChart' onClick={handleGraphs}>
-            <BarChartOutlinedIcon className='header-button-icon' />
+          <IconButton className='header-button' onClick={handleClusters}>
+            {/* <BarChartOutlinedIcon className='header-button-icon' /> */}
+            <img src={k8s} className='header-button-icon' />
           </IconButton>
           <IconButton className='header-button' aria-label='Add Cluster' onClick={openCreateDialog}>
             <AddCircleOutlineIcon className='header-button-icon' />

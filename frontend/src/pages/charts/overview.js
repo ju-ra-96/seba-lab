@@ -47,7 +47,7 @@ export default function Graphs() {
 
     ioClient.on('CPU', (metrics) => {
       let updated_data = []
-
+      console.log(metrics)
       for (var cluster_name of Object.keys(metrics)) {
         try {
           updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
