@@ -59,7 +59,7 @@ export function CreateDialog() {
                         .then((response) => {
                         }).catch((e) => {
                             toast.configure()
-                            toast.error('Error creating the cluster')
+                            toast.error(e)
                         });
                     addCluster(data)
                     toast.configure()
@@ -67,7 +67,7 @@ export function CreateDialog() {
                 })
                 .catch((e) => {
                     toast.configure()
-                    toast.error('Error creating the cluster')
+                    toast.error(e.response.data)
                 });
             closeCreateDialog();
         } else {

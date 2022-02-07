@@ -32,7 +32,8 @@ exports.createCluster = async (req, res, next) => {
         res.status(200).send(cluster);
     } catch (err) {
         if (err.code == '23505') {
-            res.status(500).send("Duplicate");
+            res.status(500).send("Cluster already exists");
+            return;
         }
         res.status(500).json(err);
     }
