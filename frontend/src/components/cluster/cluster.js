@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import kubeLogo from "../../assets/Kubernetes.png";
 import Typography from '@mui/material/Typography';
 import DeleteDialog from '../dialogs/deleteDialog';
 import useStore from "../../services/useStore";
@@ -33,7 +34,7 @@ export default function Cluster(props) {
         <img
           className="cluster_image"
           height="140"
-          src="https://www.syseleven.de/wp-content/uploads/2020/11/Kubernetes_Rad.png"
+          src={kubeLogo}
           alt="Kubernetes Cluster"
         />
         <Typography gutterBottom variant="h5" component="div">

@@ -2,13 +2,11 @@
     height: 60px;
     width: 100%;
     background-color: black;
+    box-shadow: 0 0px 16px 0 rgba(0, 0, 0, 0.8);
 }
 .header-button{
-    height: 45px;
-    width: 45px;
-    position: center !important;
-    color: #00B9F2 !important;
-    bottom: -7.5px !important;
+    height: 60px;
+    width: 60px;
 }
 .dialog_text{
     margin-bottom: 20px !important;
@@ -21,6 +19,7 @@
 }
 .header-buttons{
     position: absolute;
+    color: #00B9F2 !important;
     right: 0;
     top: 0;
 }
@@ -28,7 +27,7 @@
     height: 30px !important;
     width: 30px !important;
 }
-.header-logo-icon {
-    height: 40px !important;
-    width: 40px  !important;
+
+.header-logo{
+    padding: 15px 0px 0px 150px;
 }
