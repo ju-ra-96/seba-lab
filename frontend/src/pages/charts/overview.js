@@ -139,15 +139,13 @@ export default function Graphs() {
           fontFamily: 'Monospace',
         }}
       >
-        <h3>
-        Welcome to the SAP dashboard and happy monitoring!
-        </h3>
+        <h3>Welcome to the SAP dashboard and happy monitoring!</h3>
       </div>
 
       <Box display='flex' justifyContent='center' alignItems='center'>
         {cpuMetrics.map((metric, index) => (
-          <Item key={index} style={{height:330}}>
-            <Speedometer  clusterName={metric.cluster} title={'CPU of ' + metric.cluster} value={metric.load} />
+          <Item key={index} style={{ height: 330 }}>
+            <Speedometer clusterName={metric.cluster} title={'CPU of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
         {cpuMetricsChunk.length > 0 && (
@@ -164,7 +162,7 @@ export default function Graphs() {
           </Item>
         )}
         {ramMetrics.map((metric, index) => (
-          <Item key={index} style={{height:330}}>
+          <Item key={index} style={{ height: 330 }}>
             <Speedometer clusterName={metric.cluster} title={'RAM of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
@@ -172,8 +170,8 @@ export default function Graphs() {
 
       <Box display='flex' justifyContent='center' alignItems='center'>
         {diskMetrics.map((metric, index) => (
-          <Item key={index} style={{height:330}}>
-            <Speedometer style={{margin:'auto'}} clusterName={metric.cluster} title={'Disk of ' + metric.cluster} value={metric.load} />
+          <Item key={index} style={{ height: 330 }}>
+            <Speedometer style={{ margin: 'auto' }} clusterName={metric.cluster} title={'Disk of ' + metric.cluster} value={metric.load} />
           </Item>
         ))}
         {diskMetricsChunk.length > 0 && (
@@ -181,6 +179,9 @@ export default function Graphs() {
             <LineChart name={'Disk'} resourcesMetrics={diskMetricsChunk} />
           </Item>
         )}
+      </Box>
+
+      <Box display='flex' justifyContent='center' alignItems='center'>
         <Item>
           <Radarchart ram={ramMetrics} cpu={cpuMetrics} disk={diskMetrics} />
         </Item>
