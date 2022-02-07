@@ -47,7 +47,7 @@ export default function Graphs() {
 
     ioClient.on('CPU', (metrics) => {
       let updated_data = []
-
+      console.log(metrics)
       for (var cluster_name of Object.keys(metrics)) {
         updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
       }
@@ -55,14 +55,7 @@ export default function Graphs() {
     })
 
     ioClient.on('CPU_over_time', (metrics) => {
-      let updated_data_chunk = []
-
-      metrics.result
-        .filter((result) => result.metric.cluster_name)
-        .map((result) => {
-          updated_data_chunk.push({ cluster: result.metric.cluster_name, values: result.values })
-        })
-      setCpuMetricsChunk(updated_data_chunk)
+      setCpuMetricsChunk(metrics)
     })
 
     ioClient.on('RAM', (metrics) => {
