@@ -4,10 +4,9 @@ import PropTypes from 'prop-types'
 import Box from '@mui/material/Box'
 import LineChart from './line'
 import Radarchart from './radarchart'
-import data from './data'
 import Speedometer from './speedometer'
 import BubbleLoader from '../loader/BubbleLoader'
-import { ResponsiveContainer } from 'recharts'
+import useStore from '../../services/useStore'
 const io = require('socket.io-client')
 
 function Item(props) {
@@ -47,79 +46,65 @@ export default function Graphs() {
     const ioClient = io.connect('http://localhost:4000', { transports: ['websocket'] })
 
     ioClient.on('CPU', (metrics) => {
-      console.log('Got CPU metrics: ', metrics)
       let updated_data = []
 
       for (var cluster_name of Object.keys(metrics)) {
         updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
-        console.log('Result part is ', metrics[cluster_name].result[0].value[1], cluster_name)
       }
       setCpuMetrics(updated_data)
     })
 
     ioClient.on('CPU_over_time', (metrics) => {
-      console.log('CPU_over_time metrics: ', metrics)
       let updated_data_chunk = []
 
       metrics.result
         .filter((result) => result.metric.cluster_name)
         .map((result) => {
           updated_data_chunk.push({ cluster: result.metric.cluster_name, values: result.values })
-          console.log('Result part is overtime ', updated_data_chunk)
         })
       setCpuMetricsChunk(updated_data_chunk)
     })
 
     ioClient.on('RAM', (metrics) => {
-      console.log('Got RAM metrics: ', metrics)
       let updated_data = []
 
       for (var cluster_name of Object.keys(metrics)) {
         updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
-        console.log('Result part is ', metrics[cluster_name].result[0].value[1], cluster_name)
       }
       setRamMetrics(updated_data)
     })
 
     ioClient.on('RAM_over_time', (metrics) => {
-      console.log('RAM_over_time metrics: ', metrics)
       let updated_data_chunk = []
 
       for (var cluster_name of Object.keys(metrics)) {
         updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
-        console.log('RAMResult part is ', metrics)
       }
-      console.log(updated_data_chunk)
       setRamMetricsChunk(updated_data_chunk)
     })
 
     ioClient.on('Disk', (metrics) => {
-      console.log('Got Disk metrics: ', metrics)
       let updated_data = []
 
       for (var cluster_name of Object.keys(metrics)) {
         updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
-        console.log('Result part is ', metrics[cluster_name].result[0].value[1], cluster_name)
       }
       setDiskMetrics(updated_data)
     })
 
     ioClient.on('Disk_over_time', (metrics) => {
-      console.log('Disk_over_time metrics: ', metrics)
       let updated_data_chunk = []
 
       for (var cluster_name of Object.keys(metrics)) {
         updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
-        console.log('Disk Result part is ', metrics)
       }
-      console.log(updated_data_chunk)
       setDiskMetricsChunk(updated_data_chunk)
     })
 
     return () => {}
   }, [])
 
-  return cpuMetrics.length === 0 ? (
+  return cpuMetrics.length === 0 || ramMetrics.length === 0 || diskMetrics.length === 0 ? (
     <BubbleLoader />
   ) : (
     <div
@@ -186,13 +171,6 @@ export default function Graphs() {
           <Radarchart ram={ramMetrics} cpu={cpuMetrics} disk={diskMetrics} />
         </Item>
       </Box>
-
-      {/* <Item>
-          <Radarchart />
-        </Item>
-        <Item>
-          <AreaChart />
-        </Item> */}
     </div>
   )
 }
