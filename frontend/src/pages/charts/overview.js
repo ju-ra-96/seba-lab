@@ -181,6 +181,9 @@ export default function Graphs() {
             <LineChart name={'Disk'} resourcesMetrics={diskMetricsChunk} />
           </Item>
         )}
+        <Item>
+          <Radarchart ram={ramMetrics} cpu={cpuMetrics} disk={diskMetrics} />
+        </Item>
       </Box>
 
       {/* <Item>

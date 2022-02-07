@@ -2,7 +2,7 @@ import React from 'react'
 import { LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 function Linechart(props) {
-  console.log(props.resourcesMetrics)
+  
 
   const resourcesMetricsChunk = props.resourcesMetrics
 
@@ -12,17 +12,14 @@ function Linechart(props) {
     let element = {}
     resourcesMetricsChunk.map((metric, index) => {
       if (resourcesMetricsChunk[index].values.length > i) {
-        console.log(new Date(metric.values[0][0] * 1000).toTimeString(), metric.cluster)
 
         let time = new Date(metric.values[i][0] * 1000).toTimeString().slice(0, 5)
 
-        console.log(time, metric.cluster)
         if (index == 0) {
           element['time'] = time
         }
 
         element[metric.cluster] = metric.values[i][1]
-        console.log('element', element)
       }
     })
 
