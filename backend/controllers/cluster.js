@@ -19,7 +19,7 @@ exports.createCluster = async (req, res, next) => {
         ioClient.emit("clusterUpdate");
         res.status(200).send(cluster);
     } catch (err) {
-        if (e.code == '23505') {
+        if (err.code == '23505') {
             res.status(500).send("duplicate");
         }
         res.status(500).json(err);
