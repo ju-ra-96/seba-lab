@@ -36,22 +36,16 @@ function Linechart(props) {
       >
         {props.name} usage
       </h4>
-      <ResponsiveContainer width={700} height={250}>
-        <LineChart data={data_to_display} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='time' />
-          <YAxis />
-          <Tooltip />
-          <Legend
-            style={{
-              paddingTop: '50px',
-            }}
-          />
-          {resourcesMetricsChunk.map((metric, index) => (
-            <Line type='monotone' dataKey={metric.cluster} stroke={colors[index]} />
-          ))}
-        </LineChart>
-      </ResponsiveContainer>
+      <LineChart width={700} height={250} data={data_to_display} margin={{ top: 5, right: 20, left: 20, bottom: 10 }}>
+        <CartesianGrid strokeDasharray='3 3' />
+        <XAxis dataKey='time' />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {resourcesMetricsChunk.map((metric, index) => (
+          <Line type='monotone' dataKey={metric.cluster} stroke={colors[index]} />
+        ))}
+      </LineChart>
     </div>
   )
 }
