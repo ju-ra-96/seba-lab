@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts'
 
 const Radarchart = ({ cpu, ram, disk }) => {
@@ -13,16 +13,12 @@ const Radarchart = ({ cpu, ram, disk }) => {
   for (var name of Object.keys(incomingData)) {
     let elem = {}
 
-    console.log(name)
     elem['name'] = name
     incomingData[name].map((data) => {
       elem[data.cluster] = data.load
     })
-    console.log(elem)
     data_to_display.push(elem)
   }
-
-  console.log(data_to_display)
 
   // Sample data
   const data = data_to_display
@@ -36,7 +32,6 @@ const Radarchart = ({ cpu, ram, disk }) => {
         <PolarRadiusAxis />
         {Object.keys(data[0]).map((label, index) => {
           if (index > 0) {
-            console.log(label, index)
             return <Radar dataKey={label} stroke={colors[index]} fill={colors[index]} fillOpacity={0.5} />
           }
         })}
