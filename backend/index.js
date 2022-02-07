@@ -18,9 +18,10 @@ var storage = multer.diskStorage({
     cb(null, file.originalname)
   }
 })
-var upload = multer({ storage: storage }).single('file')
-app.post('/upload', function (req, res) {
 
+var upload = multer({ storage: storage }).single('file')
+
+app.post('/upload', function (req, res) {
   upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       return res.status(500).json(err)
@@ -31,17 +32,16 @@ app.post('/upload', function (req, res) {
   }); 
 });
 
-    // Connecting Routes
+// Connecting Routes
+app.use("/api/cluster", require("./routes/cluster"));
 
-    app.use("/api/cluster", require("./routes/cluster"));
- 
-    const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
-    const server = app.listen(PORT, () =>
-      console.log(`Server running on port ${PORT}`)
-    );
+const server = app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}`)
+);
 
-    process.on("unhandledRejection", (err, promise) => {
-      console.log(`Logged Error: ${err.message}`);
-      server.close(() => process.exit(1));
-    });
+process.on("unhandledRejection", (err, promise) => {
+  console.log(`Logged Error: ${err.message}`);
+  server.close(() => process.exit(1));
+});
