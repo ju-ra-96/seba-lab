@@ -49,27 +49,28 @@ export default function Graphs() {
       let updated_data = []
 
       for (var cluster_name of Object.keys(metrics)) {
-        updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        try {
+          updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        } catch (error) {
+          console.log(error)
+        }
       }
       setCpuMetrics(updated_data)
     })
 
     ioClient.on('CPU_over_time', (metrics) => {
-      let updated_data_chunk = []
-
-      metrics.result
-        .filter((result) => result.metric.cluster_name)
-        .map((result) => {
-          updated_data_chunk.push({ cluster: result.metric.cluster_name, values: result.values })
-        })
-      setCpuMetricsChunk(updated_data_chunk)
+      setCpuMetricsChunk(metrics)
     })
 
     ioClient.on('RAM', (metrics) => {
       let updated_data = []
 
       for (var cluster_name of Object.keys(metrics)) {
-        updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        try {
+          updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        } catch (error) {
+          console.log(error)
+        }
       }
       setRamMetrics(updated_data)
     })
@@ -78,7 +79,11 @@ export default function Graphs() {
       let updated_data_chunk = []
 
       for (var cluster_name of Object.keys(metrics)) {
-        updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
+        try {
+          updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
+        } catch (error) {
+          console.log(error)
+        }
       }
       setRamMetricsChunk(updated_data_chunk)
     })
@@ -87,7 +92,11 @@ export default function Graphs() {
       let updated_data = []
 
       for (var cluster_name of Object.keys(metrics)) {
-        updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        try {
+          updated_data.push({ cluster: cluster_name, load: Math.abs(Number(metrics[cluster_name].result[0].value[1])) })
+        } catch (error) {
+          console.log(error)
+        }
       }
       setDiskMetrics(updated_data)
     })
@@ -96,7 +105,11 @@ export default function Graphs() {
       let updated_data_chunk = []
 
       for (var cluster_name of Object.keys(metrics)) {
-        updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
+        try {
+          updated_data_chunk.push({ cluster: cluster_name, values: metrics[cluster_name].result[0].values })
+        } catch (error) {
+          console.log(error)
+        }
       }
       setDiskMetricsChunk(updated_data_chunk)
     })

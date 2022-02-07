@@ -7,6 +7,7 @@ const pool = new Pool({
         rejectUnauthorized: false
     }
 });
+let axios = require("axios");
 const io = require('socket.io-client');
 const ioClient = io.connect('http://localhost:4000', { transports: ['websocket'] })
 
@@ -14,13 +15,24 @@ const ioClient = io.connect('http://localhost:4000', { transports: ['websocket']
 exports.createCluster = async (req, res, next) => {
     try {
         const { index, id, name, config } = req.body;
+        try {
+            const result = await axios.get('http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/label/cluster_name/values');
+            console.log(result['data'])
+            if (result['data']['status'] === 'success' && !result.data.data.some(cluster_name => cluster_name === id)) {
+                console.log('Status is successful and cluster name is not there')
+                res.status(500).send("Cluster with such name is not in the prometheus federation");
+                return;
+            }
+        } catch (error) {
+            console.log('Error getting cluster_names:', error);
+        }
 
         const cluster = await pool.query('INSERT INTO idsClusters (index, id, name, config) VALUES ($1, $2, $3, $4);', [index, id, name, config]);
         ioClient.emit("clusterUpdate");
         res.status(200).send(cluster);
     } catch (err) {
         if (err.code == '23505') {
-            res.status(500).send("duplicate");
+            res.status(500).send("Duplicate");
         }
         res.status(500).json(err);
     }
