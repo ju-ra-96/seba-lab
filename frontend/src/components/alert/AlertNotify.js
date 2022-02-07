@@ -59,12 +59,34 @@ const AlertNotify = () => {
 
   const Msg = ({ alertObj }) => (
     <div>
-      <h2>Severity: {alertObj.groupLabels.severity}</h2>
-      <h4>Cluster: {alertObj.groupLabels.cluster}</h4>
-      <h5>Alert: {alertObj.groupLabels.alertname}</h5>
+      <p
+        style={{
+          fontSize: '1.5em',
+        }}
+      >
+        Severity: <strong>{alertObj.groupLabels.severity}</strong>
+      </p>
+      <p
+        style={{
+          marginTop: -10,
+          marginBottom: -10,
+        }}
+      >
+        Cluster: <strong>{alertObj.groupLabels.cluster}</strong>
+      </p>
+      <p>
+        Alert: <strong>{alertObj.groupLabels.alertname}</strong>
+      </p>
       <br />
       <label>Summary: </label>
-      <p> {alertObj.commonAnnotations.summary} </p>
+      <p
+        style={{
+          marginTop: -1,
+        }}
+      >
+        {' '}
+        {alertObj.commonAnnotations.summary}{' '}
+      </p>
     </div>
   )
 

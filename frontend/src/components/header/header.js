@@ -20,20 +20,22 @@ const Header = () => {
     navigate('/graphs')
   }
 
+ 
+
   return (
     <div className='header'>
       <div className='header-buttons-and-logo'>
-        <IconButton className='header-button' color='primary' aria-label='home' onClick={handleLogo}>
+        <IconButton className='header-button' aria-label='home' onClick={handleLogo}>
           <InsightsIcon className='header-logo-icon' />
         </IconButton>
         <div className='header-buttons'>
-          <IconButton className='header-button' color='primary' aria-label='Add Cluster' onClick={openCreateDialog}>
+          <IconButton className='header-button' aria-label='Add Cluster' onClick={openCreateDialog}>
             <AddCircleOutlineIcon className='header-button-icon' />
           </IconButton>
-          <IconButton className='header-button' color='primary' aria-label='Notifications'>
+          <IconButton className='header-button' aria-label='Notifications'>
             <NotificationsOutlinedIcon className='header-button-icon' />
           </IconButton>
-          <IconButton className='header-button' color='primary' aria-label='BarChart' onClick={handleCharts}>
+          <IconButton className='header-button' aria-label='BarChart' onClick={handleCharts}>
             <BarChartOutlinedIcon className='header-button-icon' />
           </IconButton>
         </div>
