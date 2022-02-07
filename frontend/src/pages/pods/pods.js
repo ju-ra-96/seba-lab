@@ -40,7 +40,8 @@ export function Pods(props) {
     }
     
     const trimPods = (input) => {
-       let podsString = input.replace(/ *\([^)]*\) */g, "             ");
+        console.log(input);
+        let podsString = input.replace(/ *\([^)]*\) */g, "             ");
         podsString = podsString.replaceAll(`\n`, " ")
         let podsArray = podsString.split(" ")
         podsArray = podsArray.filter(item => item);

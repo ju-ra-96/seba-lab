@@ -5,7 +5,12 @@ import AWS from 'aws-sdk'
 
 import { Consumer } from 'sqs-consumer'
 
-AWS.config.update({ accessKeyId: 'AKIA2H3WGRVNEOXPLXGH', secretAccessKey: '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', region: 'us-east-1' })
+import dotenv from 'dotenv'
+
+dotenv.config({ path: __dirname + '/../../../.env' })
+
+console.log(process.env.ACCESS_KEY_ID)
+AWS.config.update({ accessKeyId: process.env.ACCESS_KEY_ID || 'AKIA2H3WGRVNEOXPLXGH', secretAccessKey: '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', region: 'us-east-1' })
 
 const AlertNotify = () => {
   const app = Consumer.create({
