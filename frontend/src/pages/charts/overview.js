@@ -59,15 +59,7 @@ export default function Graphs() {
 
     ioClient.on('CPU_over_time', (metrics) => {
       console.log('CPU_over_time metrics: ', metrics)
-      let updated_data_chunk = []
-
-      metrics.result
-        .filter((result) => result.metric.cluster_name)
-        .map((result) => {
-          updated_data_chunk.push({ cluster: result.metric.cluster_name, values: result.values })
-          console.log('Result part is overtime ', updated_data_chunk)
-        })
-      setCpuMetricsChunk(updated_data_chunk)
+      setCpuMetricsChunk(metrics)
     })
 
     ioClient.on('RAM', (metrics) => {
