@@ -29,7 +29,7 @@ const Radarchart = ({ cpu, ram, disk }) => {
   const colors = ['green', 'blue', 'black', 'yellow', 'brown', 'red']
 
   return (
-    <ResponsiveContainer width={700} height={250}>
+    <ResponsiveContainer width={1384} height={350}>
       <RadarChart height={500} width={500} outerRadius='80%' data={data}>
         <PolarGrid />
         <PolarAngleAxis dataKey='name' />
