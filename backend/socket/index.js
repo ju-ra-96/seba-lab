@@ -1,4 +1,4 @@
-const { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day, get_cpu_usage_over_day } = require('./data_sourcing');
+const { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day, get_cpu_usage_over_day, update_cluster_names } = require('./data_sourcing');
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -7,6 +7,7 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 let cpu_metrics, ram_metrics, disk_metrics;
 
 async function emit_metrics() {
+    await update_cluster_names();
     while (true) {
         cpu_metrics = await get_cpu_usage();
         io.sockets.emit("CPU", cpu_metrics);
@@ -41,7 +42,15 @@ async function emit_metrics() {
 
 io.on('connection', (socket) => {
     console.log('A new connection established with id ', socket.id);
+    socket.on('clusterUpdate', () => {
+        update_cluster_names_async()
+        console.log('Updated cluster names');
+    })
 })
+
+async function update_cluster_names_async() {
+    await update_cluster_names();
+}
 
 io.on('disconnect', (socket) => {
     console.log('A user with id ', socket.id, 'disconnected');

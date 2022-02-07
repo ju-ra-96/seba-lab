@@ -1,12 +1,17 @@
 var axios = require("axios");
+const { Pool } = require('pg');
+const pool = new Pool({
+    connectionString: "postgres://gosdurtygktirn:ec3fe04043d41a2fc90ed6f6ee98c8b4f7399f1a685af5724bb418e8772b3a6a@ec2-54-229-68-88.eu-west-1.compute.amazonaws.com:5432/d8v06dbndnu9f0",
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
-let cluster_names = ['remote-cluster','catena-cluster']
+let cluster_names = [];
 
 async function get_metrics(link, type, cluster_name) {
     try {
         const result = await axios.get(link);
-        console.log('The result I got is ', result['data']);
-        console.log('And the data inside data is ', result['data']['data']['result'])
         if (result ['data']['status'] === 'success') {
             return result['data']['data'];
         } else {
@@ -19,13 +24,20 @@ async function get_metrics(link, type, cluster_name) {
     }
 }
 
+async function update_cluster_names() {
+    const names = await pool.query('SELECT id FROM idsClusters;');
+    let db_cluster_names = names.rows.map(row => row.id);
+    cluster_names = db_cluster_names;
+    console.log('New cluster name ', cluster_names);
+}
+
 async function get_cpu_usage() {
     let metrics = {};
     for (let i = 0; i < cluster_names.length; i++) {
         var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=(((count(count(node_cpu_seconds_total{cluster_name="' + cluster_names[i] + '"})by(cpu)))-avg(sum%20by(mode)(rate(node_cpu_seconds_total{cluster_name="' + cluster_names[i] + '",mode="idle"}[5m]))))*100)/count(count(node_cpu_seconds_total{cluster_name="' + cluster_names[i] + '"})by(cpu))';
         metrics[cluster_names[i]] = await get_metrics(link, 'CPU', cluster_names[i]);
     }
-    console.log('The metrics are', metrics);
+    //console.log('The metrics are', metrics);
     return metrics;
 }
 
@@ -35,7 +47,7 @@ async function get_cpu_usage_over_day_abs() {
         var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=node_cpu_seconds_total{cluster_name="' + cluster_names[i] + '",mode="idle"}[1d:2h]';
         metrics[cluster_names[i]] = await get_metrics(link, 'CPU', cluster_names[i]);
     }
-    console.log('The metrics are', metrics);
+    //console.log('The metrics are', metrics);
     return metrics;
 }
 
@@ -43,7 +55,7 @@ async function get_cpu_usage_over_day() {
     let metrics = {};
     var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=(100-(avg%20by%20(cluster_name)%20(irate(node_cpu_seconds_total{mode="idle"}[5m]))*100))[1d:2h]';
     metrics = await get_metrics(link, 'CPU over time', 'all clusters');
-    console.log('The metrics are', metrics);
+    //console.log('The metrics are', metrics);
     return metrics;
 }
 
@@ -54,7 +66,7 @@ async function get_ram_usage() {
         var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=100*((sum(node_memory_MemTotal_bytes{cluster_name="' + cluster_names[i] + '"})-sum(node_memory_MemFree_bytes{cluster_name="' + cluster_names[i] + '"}))/(sum(node_memory_MemTotal_bytes{cluster_name="' + cluster_names[i] + '"})))';
         metrics[cluster_names[i]] = await get_metrics(link, 'RAM', cluster_names[i]);
     }
-    console.log('The metrics are', metrics);
+    //console.log('The metrics are', metrics);
     return metrics;
 }
 
@@ -65,7 +77,7 @@ async function get_ram_usage_over_day() {
         var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=(100*((sum(node_memory_MemTotal_bytes{cluster_name="' + cluster_names[i] + '"})-sum(node_memory_MemFree_bytes{cluster_name="' + cluster_names[i] + '"}))/(sum(node_memory_MemTotal_bytes{cluster_name="' + cluster_names[i] + '"}))))[1d:2h]' ;
         metrics[cluster_names[i]] = await get_metrics(link, 'RAM', cluster_names[i]);
     }
-    console.log('The metrics are', metrics);
+    //console.log('The metrics are', metrics);
     return metrics;
 }
 
@@ -76,7 +88,7 @@ async function get_disk_usage() {
         var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=100-((sum(node_filesystem_avail_bytes{cluster_name="' + cluster_names[i] + '",mountpoint="/",fstype!="rootfs"})*100)/sum(node_filesystem_size_bytes{cluster_name="' + cluster_names[i] + '",mountpoint="/",fstype!="rootfs"}))';
         metrics[cluster_names[i]] = await get_metrics(link, 'Disk', cluster_names[i]);
     }
-    console.log('The metrics are', metrics);
+    //console.log('The metrics are', metrics);
     return metrics;
 }
 
@@ -87,9 +99,9 @@ async function get_disk_usage_over_day() {
         var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=(100-((sum(node_filesystem_avail_bytes{cluster_name="' + cluster_names[i] + '",mountpoint="/",fstype!="rootfs"})*100)/sum(node_filesystem_size_bytes{cluster_name="' + cluster_names[i] + '",mountpoint="/",fstype!="rootfs"})))[1d:2h]';
         metrics[cluster_names[i]] = await get_metrics(link, 'Disk', cluster_names[i]);
     }
-    console.log('The metrics are', metrics);
+    //console.log('The metrics are', metrics);
     return metrics;
 }
 
 
-module.exports = { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day, get_cpu_usage_over_day };
+module.exports = { get_cpu_usage, get_ram_usage, get_disk_usage, get_cpu_usage_over_day_abs, get_ram_usage_over_day, get_disk_usage_over_day, get_cpu_usage_over_day, update_cluster_names };

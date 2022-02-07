@@ -7,6 +7,9 @@ const pool = new Pool({
         rejectUnauthorized: false
     }
 });
+const io = require('socket.io-client');
+const ioClient = io.connect('http://localhost:4000', { transports: ['websocket'] })
+
 exports.createCluster = async (req, res, next) => {
     try {
         const { index, id, name, config } = req.body;
@@ -17,12 +20,14 @@ exports.createCluster = async (req, res, next) => {
                 //shell.exec("helm install prometheus prometheus-community/kube-prometheus-stack --kubeconfig=C:\\Users\\ahmed\\OneDrive\\Bureau\\seba-lab\\backend\\public\\"+configName);
             }).catch(e => {
                 if (e.code == '23505') {
+                    console.log('Duplicate');
                     res.status(500).send("duplicate");
                     return;
                 }
             })
+        ioClient.emit("clusterUpdate");
         res.status(200).send(cluster);
-        window.location.reload();
+        //window.location.reload();
     } catch (err) {
         res.status(500).json(err);
     }
@@ -34,16 +39,16 @@ exports.getCluster = async (req, res) => {
     try {
         const { id } = req.params;
         const cluster = await pool.query('SELECT * FROM idsClusters WHERE id=$1;', [id]);
-        res.json({ cluster: cluster.rows[0] })
+        res.json({ cluster: cluster.rows[0] });
     } catch (err) {
-        res.json(err)
+        res.json(err);
     }
 };
 
 exports.getClusters = async (req, res) => {
     try {
         const clusters = await pool.query('SELECT * FROM idsClusters;');
-        res.json(clusters.rows)
+        res.json(clusters.rows);
     } catch (err) {
         res.json(err)
     }
@@ -57,7 +62,8 @@ exports.deleteCluster = async (req, res) => {
         //exec("helm uninstall monitor --kubeconfig=C:\\Users\\ahmed\\OneDrive\\Bureau\\seba-lab\\backend\\public\\"+configName);
         exec(`DEL C:\\Users\\ahmed\\OneDrive\\Bureau\\seba-lab\\backend\\public\\` + configName);
         const clusters = await pool.query('DELETE FROM idsClusters WHERE id=$1;', [id]);
-        res.json(clusters.rows)
+        ioClient.emit("clusterUpdate");
+        res.json(clusters.rows);
     } catch (err) {
         res.json(err)
     }
