@@ -52,7 +52,11 @@ exports.getClusters = async (req, res) => {
 exports.deleteCluster = async (req, res) => {
     try {
         const { id } = req.params;
+        const cluster = await pool.query('SELECT * FROM idsClusters WHERE id=$1;', [id]);
         const clusters = await pool.query('DELETE FROM idsClusters WHERE id=$1;', [id]);
+        const configPath = __dirname + '/../public/' + cluster.rows[0].config.slice(7);
+        console.log(configPath);
+        exec("RM " + configPath);
         ioClient.emit("clusterUpdate");
         res.json(clusters.rows);
     } catch (err) {

@@ -54,7 +54,15 @@ async function get_cpu_usage_over_day() {
     let metrics = {};
     var link = 'http://ade37cc803177462a8f012ed39b45f0a-1814643453.eu-central-1.elb.amazonaws.com:9090/api/v1/query?query=(100-(avg%20by%20(cluster_name)%20(irate(node_cpu_seconds_total{mode="idle"}[5m]))*100))[1d:2h]';
     metrics = await get_metrics(link, 'CPU over time', 'all clusters');
-    return metrics;
+    let edited_metrics = [];
+    metrics.result
+        .filter((result) => result.metric.cluster_name)
+        .map((result) => {
+            if (cluster_names.some(name => name === result.metric.cluster_name)) {
+                edited_metrics.push({ cluster: result.metric.cluster_name, values: result.values })
+            }
+        })
+    return edited_metrics;
 }
 
 
