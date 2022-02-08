@@ -1,0 +1,28 @@
+{
+  "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "Heatmap Panel",
+  "id": "jura-96-hourly-heatmap-panel",
+  "info": {
+    "description": "Heatmap for the hours of the day",
+    "author": {
+      "name": "Julian Rahimi"
+    },
+    "keywords": ["heatmap"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "screenshots": [
+      { "name": "Hourly heatmap (Dark)", "path": "img/dark.png" },
+      { "name": "Hourly heatmap (Light)", "path": "img/light.png" }
+    ],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=8.0.0",
+    "grafanaVersion": "8.0.0",
+    "plugins": []
+  }
+}
