@@ -1,0 +1,36 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: seba-backend-service
+spec:
+  selector:
+    app: seba-backend
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 8000
+      # Port to forward to inside the pod
+      targetPort: 8000
+      # Port accessible outside cluster 
+---
+ 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seba-backend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: seba-backend
+  template:
+    metadata:
+      labels:
+        app: seba-backend
+    spec:
+      containers:
+        - name: seba-backend
+          image: tumbaboci/seba-lab-backend:latest
+          ports:
+            - containerPort: 8000

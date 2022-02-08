@@ -1,0 +1,39 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: seba-socket-service
+spec:
+  selector:
+    app: seba-socket
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 4000
+      # Port to forward to inside the pod
+      targetPort: 4000
+      # Port accessible outside cluster
+      nodePort: 30002
+  type: LoadBalancer
+ 
+---
+ 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seba-socket-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: seba-socket
+  template:
+    metadata:
+      labels:
+        app: seba-socket
+    spec:
+      containers:
+        - name: seba-socket
+          image: tumbaboci/seba-lab-socket:latest
+          ports:
+            - containerPort: 4000

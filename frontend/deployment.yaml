@@ -1,0 +1,36 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: seba-frontend-service
+spec:
+  selector:
+    app: seba-frontend
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 3000
+      # Port to forward to inside the pod
+      targetPort: 3000
+      # Port accessible outside cluster 
+---
+ 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seba-frontend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: seba-frontend
+  template:
+    metadata:
+      labels:
+        app: seba-frontend
+    spec:
+      containers:
+        - name: seba-frontend
+          image: tumbaboci/seba-lab-frontend:latest
+          ports:
+            - containerPort: 8000
