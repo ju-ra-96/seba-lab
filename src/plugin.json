@@ -1,0 +1,31 @@
+{
+  "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "Treemap",
+  "id": "jura-96-treemap-panel",
+  "info": {
+    "description": "Area-based visualization of hierarchical data",
+    "author": {
+      "name": "Julian Rahimi",
+      "url": ""
+    },
+    "keywords": ["treemap"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "screenshots": [
+      {
+        "name": "Treemap",
+        "path": "img/screenshot.png"
+      }
+    ],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.3.0",
+    "grafanaVersion": "7.3.0",
+    "plugins": []
+  }
+}
