@@ -1,0 +1,35 @@
+{
+  "name": "jura-96-hexmap-panel",
+  "version": "0.3.2",
+  "description": "A Grafana panel plugin for hexagonal tiling of data",
+  "keywords": [
+    "grafana"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch",
+    "sign": "grafana-toolkit plugin:sign"
+  },
+  "author": {
+    "name": "Julian Rahimi",
+    "email": "",
+    "url": ""
+  },
+  "dependencies": {
+    "@tippyjs/react": "^4.0.2",
+    "grafana-plugin-support": "0.4.0"
+  },
+  "devDependencies": {
+    "@grafana/data": "8.2.5",
+    "@grafana/runtime": "8.2.5",
+    "@grafana/toolkit": "8.2.5",
+    "@grafana/ui": "8.2.5",
+    "emotion": "10.0.27"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

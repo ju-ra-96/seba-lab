@@ -1,0 +1,31 @@
+{
+  "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "Hexmap",
+  "id": "jura-96-hexmap-panel",
+  "info": {
+    "description": "Hexagonal tiling of data",
+    "author": {
+      "name": "Julian Rahimi",
+      "url": ""
+    },
+    "keywords": ["hostmap", "hexagon", "hex", "map"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "screenshots": [
+      {
+        "name": "Hexmap",
+        "path": "img/screenshot.png"
+      }
+    ],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.3",
+    "grafanaVersion": "7.0.3",
+    "plugins": []
+  }
+}
