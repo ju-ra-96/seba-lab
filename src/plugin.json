@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "app",
   "name": "Simple App",
-  "id": "myorgid-simple-app",
+  "id": "myorgid-chart-app",
 
   "info": {
     "description": "Grafana App Plugin Template",
@@ -55,6 +55,51 @@
       "type": "dashboard",
       "name": "Lots of Stats",
       "path": "dashboards/stats.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Kubernetes for Prometheus",
+      "path": "dashboards/kubernetes-for-prometheus-dashboard.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "kube-state-metrics-v2",
+      "path": "dashboards/kube-state-metrics-v2_rev12.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "K8S Cluster",
+      "path": "dashboards/k8-cluster_rev1.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "K8S Monitoring",
+      "path": "dashboards/kubernetes-monitoring_rev1.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Node Exporter Full",
+      "path": "dashboards/node-exporter-full_rev25.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Node Exporter Simple",
+      "path": "dashboards/node-exporter-simple_rev3.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Cluster Monitoring",
+      "path": "dashboards/kubernetes-cluster-monitoring-via-prometheus_rev1.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Node Exporter Sample",
+      "path": "dashboards/sample.json"
+    },
+    {
+      "type": "dashboard",
+      "name": "Node Exporter Sample",
+      "path": "dashboards/alt-dashboard.json"
     }
   ],
 
